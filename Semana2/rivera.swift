@@ -1,8 +1,20 @@
 import Foundation
-//framework de swift para el uso de comandos
-print("Numero 1")
-let a = Double(readLine() ?? " " ) ?? 0
-print("Numero 2")
-let b = Double(readLine() ?? " " ) ?? 0
-let suma = a + b
-print("La suma es \(suma)")
+
+// definir el promedio en pesos
+
+let parcial = 0.3
+let trabajo = 0.3
+let final = 0.4
+
+print ("Nombre alumno")
+let alumno = readLine() ?? ""
+
+print("Nota del Examen Parcial: ")
+
+let exparcial = Double(readLine() ?? "") ?? 0
+
+print("Nota del trabajo: ")
+
+let extrabajo = Double(readLine() ?? "") ?? 0
+
+//commit de entrada de datos
