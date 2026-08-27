@@ -38,3 +38,31 @@ print("Fecha de devolucion real (dd/MM/yyyy):")
 let fechaFinStr = readLine() ?? ""
 let fechaFin = formatter.date(from: fechaFinStr) ?? Date()
 
+// --- COMMIT 2: LÓGICA DE ATRASO Y BOLETA ---
+
+// Cálculo de días transcurridos con Foundation
+let calendar = Calendar.current
+let inicio = calendar.startOfDay(for: fechaInicio)
+let fin = calendar.startOfDay(for: fechaFin)
+let diff = calendar.dateComponents([.day], from: inicio, to: fin)
+let diasTotales = max(1, (diff.day ?? 0) + 1)
+
+// Evaluación de retraso y regla de suspensión (10+ días de retraso)
+let diasAtraso = max(0, diasTotales - maxDias)
+let estaSuspendido = (diasAtraso >= 10)
+let estadoPrestamo = (diasAtraso > 0) ? "Devuelto con atraso" : "Devuelto a tiempo"
+
+// Impresión de Boleta
+print("\n=================================")
+print("        BOLETA DE PRESTAMO       ")
+print("=================================")
+print("Libro:             \(titulo)")
+print("Usuario:           \(nombreTipo)")
+print("Limite Permitido:  \(maxDias) dias (Tarifa base: S/ \(tarifaBase)/dia)")
+print("Fecha Prestamo:    \(formatter.string(from: fechaInicio))")
+print("Fecha Devolucion:  \(formatter.string(from: fechaFin))")
+print("Dias Totales:      \(diasTotales) dias")
+print("Dias de Atraso:    \(diasAtraso) dias")
+print("Estado Prestamo:   \(estadoPrestamo)")
+print("Estado Usuario:    \(estaSuspendido ? "SUSPENDIDO 🚫" : "ACTIVO ✅")")
+print("---------------------------------")
