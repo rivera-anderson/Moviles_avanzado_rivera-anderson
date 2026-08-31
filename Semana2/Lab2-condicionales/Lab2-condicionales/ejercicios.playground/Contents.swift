@@ -348,3 +348,45 @@ print(separador)
 print("TOTAL: \t\t\tS/. \(totalFinal)")
 print(separador)
 print("¡Gracias por su compra!")
+
+// ===== EJERCICIO 6: CARRITO MEJORADO (CON IA) =====
+let productoAI = "Audífonos" // Asignamos el nombre del producto
+let precioAI = 250.0 // Asignamos el precio del producto
+let cantidadAI = 4 // Asignamos la cantidad a comprar
+let cuponAI = "DESCUENTO20" // Asignamos el código del cupón
+// 1. Validación de precio y cantidad
+if precioAI < 0 || cantidadAI <= 0 { // Verificamos si el precio es negativo o cantidad es cero
+   print("Error: Precio o cantidad inválidos.") // Imprimimos mensaje de error
+} else {
+   var subtotalAI = precioAI * Double(cantidadAI) // Calculamos el primer subtotal multiplicando
+  
+   // 2. Descuento por cantidad (5% extra)
+   if cantidadAI >= 3 { // Evaluamos si la cantidad es 3 o mayor
+       let dctoVolumen = subtotalAI * 0.05 // Obtenemos el 5% del subtotal
+       subtotalAI -= dctoVolumen // Restamos el descuento al subtotal
+       print("Descuento del 5% aplicado por volumen.") // Avisamos en consola
+   }
+  
+   // 3. Cupón de descuento (20% adicional)
+   if cuponAI == "DESCUENTO20" { // Validamos si el texto del cupón es exacto
+       let dctoCupon = subtotalAI * 0.20 // Obtenemos el 20% del subtotal actual
+       subtotalAI -= dctoCupon // Restamos el cupón al subtotal
+       print("Cupón del 20% aplicado con éxito.") // Confirmamos el cupón
+   }
+  
+   // 4. Envío gratis
+   var envioAI = 0.0 // Variable para el costo del envío
+   if subtotalAI > 3000.0 { // Comprobamos si la compra pasa los 3000
+       print("Envío gratis aplicable.") // Informamos envío gratis
+   } else {
+       envioAI = 25.0 // Asignamos 25 al costo de envío
+       print("Costo de envío: S/. 25.00") // Imprimimos tarifa
+   }
+  
+   let totalPagoAI = subtotalAI + envioAI // Sumamos el subtotal final con el envío
+   print("Total Final a Pagar: S/. \(totalPagoAI)") // Mostramos el total
+  
+   // 5. Puntos de fidelidad
+   let puntosAI = Int(totalPagoAI / 100.0) // Dividimos entre 100 y pasamos a Int para quitar decimales
+   print("Ganaste \(puntosAI) puntos de fidelidad.") // Mostramos los puntos
+}
