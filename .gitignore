@@ -1,0 +1,48 @@
+# Xcode - Estado de usuario y personalizaciones
+*.xcodeproj/xcuserdata/
+*.xcworkspace/xcuserdata/
+xcuserdata/
+*.xcuserstatedata
+*.xctimeline
+*.playground/xcuserdata/
+*.pbxuser
+!default.pbxuser
+*.mode1v3
+!default.mode1v3
+*.mode2v3
+!default.mode2v3
+*.perspectivev3
+!default.perspectivev3
+
+# Archivos de compilación y cache
+build/
+DerivedData/
+.build/
+*.moved-aside
+*.dSYM
+
+# Swift Package Manager (SPM)
+.swiftpm/
+SourcePackages/
+
+# Gestores de dependencias (CocoaPods y Carthage)
+Pods/
+Carthage/Build/
+
+# Fastlane / Integración Continua
+fastlane/report.xml
+fastlane/Preview.html
+fastlane/screenshots/
+fastlane/test_output/
+
+# Archivos del sistema macOS
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+
+# Editores secundarios (VS Code, Vim, etc.)
+.vscode/
+*.swp
+*~
