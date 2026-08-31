@@ -210,4 +210,69 @@ print(texto)
 // ¿Para qué sirve _ en vez de i?
 // (El guion bajo _ sirve para ignorar la variable iteradora cuando no se usa).
 
+// ===== EJERCICIO 4: WHILE =====
+var contador = 5
+while contador > 0 {
+   print("Cuenta regresiva: \(contador)")
+   contador -= 1
+}
+print("¡Despegue!")
+// --- TODO 11: Ahorro mensual ---
+var ahorro = 0.0
+var meses = 0
+let meta = 2000.0
+let ahorroMensual = 150.0
+while ahorro < meta {
+   ahorro += ahorroMensual
+   meses += 1
+}
+print("Necesita \(meses) meses para juntar S/. \(meta)")
+// --- TODO 12: División sucesiva ---
+var numeroV = 1000.0
+var divisiones = 0
+while numeroV >= 1.0 {
+   numeroV = numeroV / 2
+   divisiones += 1
+   print("División \(divisiones): \(numeroV)")
+}
+print("Se dividió \(divisiones) veces")
+// --- TODO 13: Validar datos con repeat-while ---
+let intento1 = 25
+let intento2 = -3
+let intento3 = 15
+var intentoActual = intento1
+var esValido = false
+var numIntento = 1
+repeat {
+   if intentoActual >= 0 && intentoActual <= 20 {
+       esValido = true
+       print("Nota \(intentoActual) válida en intento \(numIntento)")
+   } else {
+       print("Nota \(intentoActual) inválida, intento \(numIntento)")
+       if numIntento == 1 { intentoActual = intento2 }
+       if numIntento == 2 { intentoActual = intento3 }
+       numIntento += 1
+   }
+} while !esValido
+
+import Foundation
+
+// PREDICT 8:
+// ¿Valor final?: 1
+// ¿Cuántas vueltas?: 4
+
+var a = 100
+while a > 1 {
+    a = a / 3
+}
+print(a)
+// PREDICT 9:
+// ¿Valor final?: 1  ¿Cuántas vueltas?: 1
+// ¿Por qué repeat-while ejecuta al menos una vez?
+// Porque primero entra al bloque { }, ejecuta las instrucciones y evalúa la condición al final. Por eso la primera pasada es obligatoria.
+var b = 0
+repeat {
+    b += 1
+} while b < 0
+print(b)
 
