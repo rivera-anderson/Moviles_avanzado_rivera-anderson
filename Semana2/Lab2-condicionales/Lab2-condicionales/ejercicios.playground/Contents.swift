@@ -276,3 +276,75 @@ repeat {
 } while b < 0
 print(b)
 
+// ===== EJERCICIO 5: CARRITO DE COMPRAS =====
+let prod1 = "Laptop"
+let precio1 = 3500.0
+let cant1 = 1
+let prod2 = "Mouse"
+let precio2 = 45.50
+let cant2 = 2
+let prod3 = "Teclado"
+let precio3 = 120.00
+let cant3 = 1
+let prod4 = "Monitor"
+let precio4 = 890.00
+let cant4 = 1
+let prod5 = "USB Cable"
+let precio5 = 15.00
+let cant5 = 3
+// --- TODO 14: Calcula el subtotal de cada producto ---
+let sub1 = precio1 * Double(cant1)
+let sub2 = precio2 * Double(cant2)
+let sub3 = precio3 * Double(cant3)
+let sub4 = precio4 * Double(cant4)
+let sub5 = precio5 * Double(cant5)
+// --- TODO 15: Calcula el subtotal general ---
+let subtotalGeneral = sub1 + sub2 + sub3 + sub4 + sub5
+// --- TODO 16: Aplica descuento según monto de compra ---
+var porcentajeDescuento = 0.0
+if subtotalGeneral >= 5000 {
+   porcentajeDescuento = 0.15
+} else if subtotalGeneral >= 2000 {
+   porcentajeDescuento = 0.10
+} else if subtotalGeneral >= 500 {
+   porcentajeDescuento = 0.05
+} else {
+   porcentajeDescuento = 0.0
+}
+let descuento = subtotalGeneral * porcentajeDescuento
+let subtotalConDescuento = subtotalGeneral - descuento
+// --- TODO 17: Categoría de cliente según monto ---
+let montoParaCategoria = Int(subtotalGeneral)
+var categoriaCliente = ""
+switch montoParaCategoria {
+case 0..<500: categoriaCliente = "Regular"
+case 500..<2000: categoriaCliente = "Frecuente"
+case 2000..<5000: categoriaCliente = "VIP"
+default: categoriaCliente = "Premium"
+}
+// --- TODO 18: Calcula IGV y total ---
+let igv = subtotalConDescuento * 0.18
+let totalFinal = subtotalConDescuento + igv
+// --- TODO 19: Imprime el ticket de compra ---
+var separador = ""
+for _ in 1...40 {
+   separador += "="
+}
+print(separador)
+print("          TICKET DE COMPRA")
+print(" Cliente: \(categoriaCliente)")
+print(separador)
+print("\(prod1) x\(cant1) \tS/. \(sub1)")
+print("\(prod2) x\(cant2) \tS/. \(sub2)")
+print("\(prod3) x\(cant3) \tS/. \(sub3)")
+print("\(prod4) x\(cant4) \tS/. \(sub4)")
+print("\(prod5) x\(cant5) \tS/. \(sub5)")
+print(separador)
+print("Subtotal: \t\tS/. \(subtotalGeneral)")
+print("Descuento (\(porcentajeDescuento * 100)%): \t-S/. \(descuento)")
+print("Subtotal c/desc: \tS/. \(subtotalConDescuento)")
+print("IGV (18%): \t\tS/. \(igv)")
+print(separador)
+print("TOTAL: \t\t\tS/. \(totalFinal)")
+print(separador)
+print("¡Gracias por su compra!")
