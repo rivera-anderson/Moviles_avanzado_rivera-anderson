@@ -63,6 +63,37 @@ if hora >= 0 && hora < 12 {
 }
 
 // 1.3 Predicciones
+
+import Foundation
+
+// PREDICT 1
+let x = 10
+if x > 5 && x < 20 {
+    print("Dentro del rango")
+} else {
+    print("Fuera del rango")
+}
+
+// PREDICT 2
+let y = 15
+if y > 20 {
+    print("Mayor que 20")
+} else if y > 10 {
+    print("Mayor que 10")
+} else if y > 5 {
+    print("Mayor que 5")
+}
+
+// PREDICT 3
+let esLunes = true
+let llueve = false
+if esLunes && llueve {
+    print("Lunes lluvioso")
+} else if esLunes || llueve {
+    print("Es lunes O llueve")
+} else {
+    print("Ni lunes ni llueve")
+}
 // PREDICT 1: Imprime "Dentro del rango"
 // PREDICT 2: Imprime "Mayor que 10" (No imprime el 5 porque en un if/else if, al cumplirse la primera condición verdadera, se sale de toda la estructura).
 // PREDICT 3: Imprime "Es lunes O llueve"
@@ -127,3 +158,56 @@ switch letra {
 case "a", "e", "i", "o", "u": print("Vocal")
 default: print("Consonante")
 } // PREDICT 5: Vocal
+
+
+// ===== EJERCICIO 3: FOR-IN =====
+for i in 1...5 {
+   print("Número: \(i)")
+}
+// --- TODO 7: Tabla de multiplicar del 7 ---
+for i in 1...12 {
+   print("7 x \(i) = \(7 * i)")
+}
+// --- TODO 8: Sumatoria del 1 al 100 ---
+var suma = 0
+for i in 1...100 {
+   suma = suma + i
+}
+print("La suma del 1 al 100 es: \(suma)")
+// --- TODO 9: Calcular el factorial de 8 ---
+var factorial = 1
+for i in 1...8 {
+   factorial = factorial * i
+}
+print("8! = \(factorial)")
+// --- TODO 10: Patrón de asteriscos ---
+for i in 1...5 {
+   print(String(repeating: "*", count: i))
+}
+// ===== FIX: Encuentra los 2 errores =====
+for i in 1...20 {
+   if i % 2 == 0 { // FIX 4: Era == 0 para pares. == 1 imprime impares.
+       print(i)
+   }
+}
+// FIX 5: 1...10 cuenta hacia adelante. Para atrás usamos stride.
+for i in stride(from: 10, through: 1, by: -1) {
+   print(i)
+}
+
+// PREDICT: ¿Cuántas veces se ejecuta y qué imprime al final?
+var total = 0
+for i in 1...5 {
+total += i
+}
+print(total) // PREDICT 6: ¿Valor? 15 ¿Cuántas iteraciones? 5
+var texto = ""
+for _ in 1...3 {
+texto += "Hola "
+}
+print(texto)
+// PREDICT 7: "Hola Hola Hola "
+// ¿Para qué sirve _ en vez de i?
+// (El guion bajo _ sirve para ignorar la variable iteradora cuando no se usa).
+
+
