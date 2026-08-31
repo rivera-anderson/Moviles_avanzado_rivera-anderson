@@ -390,3 +390,41 @@ if precioAI < 0 || cantidadAI <= 0 { // Verificamos si el precio es negativo o c
    let puntosAI = Int(totalPagoAI / 100.0) // Dividimos entre 100 y pasamos a Int para quitar decimales
    print("Ganaste \(puntosAI) puntos de fidelidad.") // Mostramos los puntos
 }
+// ===== EJERCICIO 7: JUEGO DE ADIVINANZA (CON IA) =====
+let secretoAI = 42 // Definimos el número ganador
+let t1 = 20 // Intento simulado 1
+let t2 = 80 // Intento simulado 2
+let t3 = 35 // Intento simulado 3
+let t4 = 42 // Intento simulado 4 (gana aquí)
+let t5 = 90 // Intento simulado 5
+var intentoAct = 1 // Iniciamos contador de turnos
+var valorPrueba = 0 // Variable para guardar la prueba del turno
+var acertoJuego = false // Bandera booleana de victoria
+// Bucle while con límite de 5 intentos y que no haya ganado
+while intentoAct <= 5 && !acertoJuego { // Doble condición
+  
+   if intentoAct == 1 { valorPrueba = t1 } // Turno 1 carga t1
+   else if intentoAct == 2 { valorPrueba = t2 } // Turno 2 carga t2
+   else if intentoAct == 3 { valorPrueba = t3 } // Turno 3 carga t3
+   else if intentoAct == 4 { valorPrueba = t4 } // Turno 4 carga t4
+   else if intentoAct == 5 { valorPrueba = t5 } // Turno 5 carga t5
+  
+   print("Intento \(intentoAct): \(valorPrueba)") // Mostramos turno y valor
+  
+   // Validaciones del juego
+   if valorPrueba > secretoAI { // Si el número es más grande
+       print("Muy alto.") // Pista de bajar
+   } else if valorPrueba < secretoAI { // Si el número es más bajo
+       print("Muy bajo.") // Pista de subir
+   } else { // Si es exacto
+       print("¡Correcto! Adivinaste el número.") // Celebra victoria
+       acertoJuego = true // Cambia bandera para romper el while
+       print("Lo lograste en \(intentoAct) intentos.") // Muestra score
+   }
+  
+   intentoAct += 1 // Suma 1 al contador para el siguiente turno
+}
+// Fuera del bucle comprobamos si perdió
+if !acertoJuego { // Si la bandera de victoria sigue falsa
+   print("Perdiste. El número era: \(secretoAI)") // Muestra mensaje de derrota
+}
