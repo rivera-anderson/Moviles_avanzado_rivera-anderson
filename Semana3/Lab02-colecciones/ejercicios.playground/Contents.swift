@@ -116,3 +116,51 @@ print("Mayores de 21: \(mayores)")
 // ¿Qué imprime?
 // Mayores de 21: ["Luis"]
 
+
+// Desarrollado por:  rivera anderson
+import Foundation
+
+// ===== TODO 8: Eliminar duplicados =====
+var numeros: [Int] = [10, 20, 10, 30, 40, 20, 50, 30]
+
+print("Con duplicados: \(numeros)")
+
+let sinDuplicados = Array(Set(numeros)).sorted()
+
+print("Sin duplicados: \(sinDuplicados)")
+
+// ===== TODO 9: Comparar asistencia =====
+
+let lunes: Set<String> = [
+    "Ana",
+    "Carlos",
+    "Beto",
+    "Maria"
+]
+
+let martes: Set<String> = [
+    "Carlos",
+    "Beto",
+    "Luis",
+    "Pedro"
+]
+
+let ambosDias = lunes.intersection(martes)
+let soloLunes = lunes.subtracting(martes)
+let soloMartes = martes.subtracting(lunes)
+
+print("===== ASISTENCIA =====")
+print("Ambos días: \(ambosDias)")
+print("Solo lunes: \(soloLunes)")
+print("Solo martes: \(soloMartes)")
+
+let a: Set = [1, 2, 3, 4, 5]
+let b: Set = [4, 5, 6, 7, 8]
+
+print(a.intersection(b)) // PREDICT 5: [4, 5]
+print(a.union(b).count)  // PREDICT 6: 8
+print(a.subtracting(b))  // PREDICT 7: [1, 2, 3]
+
+var repetidos: Set = ["A", "B", "A", "C", "B"]
+
+print(repetidos.count) // PREDICT 8: 3
