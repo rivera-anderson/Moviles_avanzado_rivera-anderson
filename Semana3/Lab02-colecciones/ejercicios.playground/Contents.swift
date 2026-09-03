@@ -121,7 +121,7 @@ print("Mayores de 21: \(mayores)")
 import Foundation
 
 // ===== TODO 8: Eliminar duplicados =====
-var numeros: [Int] = [10, 20, 10, 30, 40, 20, 50, 30]
+var Numeros: [Int] = [10, 20, 10, 30, 40, 20, 50, 30]
 
 print("Con duplicados: \(numeros)")
 
@@ -164,3 +164,44 @@ print(a.subtracting(b))  // PREDICT 7: [1, 2, 3]
 var repetidos: Set = ["A", "B", "A", "C", "B"]
 
 print(repetidos.count) // PREDICT 8: 3
+
+
+// Desarrollado por: rivera anderson
+import Foundation
+
+// ===== TODO 10: Inventario de productos =====
+
+var precios: [String: Double] = [
+    "Laptop": 3500,
+    "Mouse": 45,
+    "Teclado": 120,
+    "Monitor": 800
+]
+
+var stocks: [String: Int] = [
+    "Laptop": 3,
+    "Mouse": 10,
+    "Teclado": 2,
+    "Monitor": 7
+]
+
+// ===== Calcular valor total =====
+var ValorTotal = 0.0
+
+for (producto, precio) in precios {
+    if let stock = stocks[producto] {
+        valorTotal += precio * Double(stock)
+    }
+}
+
+print("===== INVENTARIO =====")
+print("Valor total del inventario: S/. \(valorTotal)")
+
+// ===== Mostrar productos con stock bajo =====
+print("\n===== STOCK BAJO =====")
+
+for (producto, stock) in stocks {
+    if stock < 5 {
+        print("\(producto): \(stock) unidades")
+    }
+}
