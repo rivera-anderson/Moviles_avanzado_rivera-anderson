@@ -59,7 +59,7 @@ print(nombres)          // ["Ana", "Carlos", "Beto"]
 
 
 // Desarrollado por: rivera anderson
-import Foundation
+
 
 // ===== TODO 4: Catálogo de productos =====
 var productos: [String: Double] = [
@@ -77,13 +77,13 @@ for (nombre, precio) in productos {
 }
 
 // ===== TODO 6: Valor total =====
-var valorTotal = 0.0
+var valorTotal1 = 0.0
 
 for (_, precio) in productos {
-    valorTotal += precio
+    valorTotal1 += precio
 }
 
-print("Valor total: S/. \(valorTotal)")
+print("Valor total: S/. \(valorTotal1)")
 
 // ===== TODO 7: Buscar producto =====
 let buscarProd = "Laptop"
@@ -118,14 +118,14 @@ print("Mayores de 21: \(mayores)")
 
 
 // Desarrollado por:  rivera anderson
-import Foundation
+
 
 // ===== TODO 8: Eliminar duplicados =====
 var Numeros: [Int] = [10, 20, 10, 30, 40, 20, 50, 30]
 
-print("Con duplicados: \(numeros)")
+print("Con duplicados: \(Numeros)")
 
-let sinDuplicados = Array(Set(numeros)).sorted()
+let sinDuplicados = Array(Set(Numeros)).sorted()
 
 print("Sin duplicados: \(sinDuplicados)")
 
@@ -167,11 +167,11 @@ print(repetidos.count) // PREDICT 8: 3
 
 
 // Desarrollado por: rivera anderson
-import Foundation
+
 
 // ===== TODO 10: Inventario de productos =====
 
-var precios: [String: Double] = [
+var precios1: [String: Double] = [
     "Laptop": 3500,
     "Mouse": 45,
     "Teclado": 120,
@@ -186,16 +186,16 @@ var stocks: [String: Int] = [
 ]
 
 // ===== Calcular valor total =====
-var ValorTotal = 0.0
+var ValorTotal2 = 0.0
 
-for (producto, precio) in precios {
+for (producto, precio) in precios1 {
     if let stock = stocks[producto] {
-        valorTotal += precio * Double(stock)
+        ValorTotal2 += precio * Double(stock)
     }
 }
 
 print("===== INVENTARIO =====")
-print("Valor total del inventario: S/. \(valorTotal)")
+print("Valor total del inventario: S/. \(ValorTotal2)")
 
 // ===== Mostrar productos con stock bajo =====
 print("\n===== STOCK BAJO =====")
@@ -205,3 +205,90 @@ for (producto, stock) in stocks {
         print("\(producto): \(stock) unidades")
     }
 }
+// Desarrollado por: rivera anderson
+import Foundation
+
+// ===== CARRITO DE COMPRAS 2.0 =====
+var nombresCarrito: [String] = []
+var preciosCarrito: [Double] = []
+var cantidades: [Int] = []
+
+// TODO 11: Pedir productos
+print("¿Cuántos productos va a comprar?")
+let totalProductos = Int(readLine() ?? "") ?? 0
+
+if totalProductos > 0 {
+    for i in 1...totalProductos {
+        print("\nProducto \(i) - Nombre:")
+        nombresCarrito.append(readLine() ?? "")
+        print("Precio unitario:")
+        preciosCarrito.append(Double(readLine() ?? "") ?? 0)
+        print("Cantidad:")
+        cantidades.append(Int(readLine() ?? "") ?? 0)
+    }
+}
+
+// TODO 12: Calcular subtotales
+var subtotales: [Double] = []
+if nombresCarrito.count > 0 {
+    for i in 0..<nombresCarrito.count {
+        let sub = preciosCarrito[i] * Double(cantidades[i])
+        subtotales.append(sub)
+    }
+}
+
+// TODO 13: Total del carrito
+var totalCarrito = 0.0
+for sub in subtotales {
+    totalCarrito += sub
+}
+
+// TODO 14: Nombre del cliente
+print("\nNombre del cliente:")
+let cliente = readLine() ?? ""
+
+// TODO 15: Descuento
+var descPct = 0.0
+if totalCarrito >= 5000 { descPct = 0.15 }
+else if totalCarrito >= 2000 { descPct = 0.10 }
+else if totalCarrito >= 500 { descPct = 0.05 }
+
+let descuento = totalCarrito * descPct
+let totalConDesc = totalCarrito - descuento
+
+// TODO 16: IGV y total
+let igv = totalConDesc * 0.18
+let totalFinal = totalConDesc + igv
+
+// TODO 17: Categoría
+var categoria = ""
+switch Int(totalCarrito) {
+case 0..<500: 
+    categoria = "Regular"
+case 500..<2000: 
+    categoria = "Frecuente"
+case 2000..<5000: 
+    categoria = "VIP"
+default: 
+    categoria = "Premium"
+}
+
+// TODO 18: Ticket
+let sep = String(repeating: "=", count: 45)
+print(sep)
+print(" TICKET DE COMPRA 2.0")
+print(" Cliente: \(cliente) (\(categoria))")
+print(sep)
+for i in 0..<nombresCarrito.count {
+    print("\(nombresCarrito[i]) x\(cantidades[i]) S/. \(subtotales[i])")
+}
+print(sep)
+print("Subtotal: S/. \(totalCarrito)")
+if descPct > 0 {
+    print("Descuento (\(descPct * 100)%): -S/. \(descuento)")
+}
+print("IGV (18%): S/. \(igv)")
+print(sep)
+print("TOTAL: S/. \(totalFinal)")
+print(sep)
+print("¡Gracias por su compra, \(cliente)!")
