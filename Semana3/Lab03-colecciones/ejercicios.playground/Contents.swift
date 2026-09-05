@@ -67,3 +67,75 @@ for (nombre, promedio) in promediosOrdenados { // Recorremos el nuevo arreglo de
     print("\(nombre): \(promedio)") // Imprimimos el nombre del alumno y su respectivo promedio
 }
 
+// Desarrollado por: rivera anderson
+import Foundation // Importamos la librería base para funcionalidades básicas
+
+var nombresProd: [String] = [] // Arreglo para almacenar los nombres de los productos
+var preciosProd: [Double] = [] // Arreglo para almacenar los precios de los productos
+var stocksProd: [Int] = [] // Arreglo para almacenar la cantidad en stock de cada producto
+
+print("¿Cuántos productos registrará al inicio?") // Pedimos la cantidad inicial de productos a ingresar
+let cantidadProductos = Int(readLine() ?? "0") ?? 0 // Leemos el dato de la consola y lo convertimos a entero
+
+if cantidadProductos > 0 { // Verificamos que la cantidad sea mayor a cero
+    for i in 1...cantidadProductos { // Iniciamos un bucle para registrar producto por producto
+        print("Producto \(i) - Nombre:") // Solicitamos el nombre del producto
+        nombresProd.append(readLine() ?? "") // Leemos y guardamos el nombre en su arreglo
+        print("Precio:") // Solicitamos el precio del producto
+        preciosProd.append(Double(readLine() ?? "0") ?? 0.0) // Leemos, convertimos a decimal y guardamos en su arreglo
+        print("Stock:") // Solicitamos el stock disponible
+        stocksProd.append(Int(readLine() ?? "0") ?? 0) // Leemos, convertimos a entero y guardamos en su arreglo
+    }
+}
+
+var salir = false // Variable booleana que servirá como bandera para mantener o cerrar el menú
+
+while !salir { // Iniciamos un bucle while que se repetirá mientras 'salir' sea falso
+    print("\n--- MENÚ DE INVENTARIO ---") // Imprimimos el título del menú principal
+    print("1) Ver inventario") // Mostramos la opción 1
+    print("2) Buscar") // Mostramos la opción 2
+    print("3) Stock bajo") // Mostramos la opción 3
+    print("4) Valor total") // Mostramos la opción 4
+    print("5) Salir") // Mostramos la opción 5
+    print("Elige una opción:") // Pedimos al usuario que seleccione un número
+    
+    let opcion = Int(readLine() ?? "0") ?? 0 // Leemos la opción elegida y la convertimos a entero
+    
+    switch opcion { // Usamos un switch para ejecutar el código según la opción elegida
+    case 1: // Caso 1: Mostrar todo el inventario
+        print("\nINVENTARIO ACTUAL:") // Imprimimos subtítulo
+        for i in 0..<nombresProd.count { // Recorremos los arreglos usando el total de elementos
+            print("\(nombresProd[i]) - Precio: S/.\(preciosProd[i]) - Stock: \(stocksProd[i])") // Imprimimos los datos enlazando los índices
+        }
+    case 2: // Caso 2: Buscar un producto específico
+        print("\nIngrese el nombre a buscar:") // Solicitamos el nombre a buscar
+        let buscar = readLine() ?? "" // Leemos el nombre escrito por el usuario
+        var encontrado = false // Bandera local para saber si el producto existe
+        for i in 0..<nombresProd.count { // Recorremos la lista de nombres
+            if nombresProd[i].lowercased() == buscar.lowercased() { // Comparamos en minúsculas para evitar errores
+                print("Encontrado: \(nombresProd[i]) - S/.\(preciosProd[i]) - Stock: \(stocksProd[i])") // Mostramos la información si coincide
+                encontrado = true // Cambiamos la bandera a verdadero
+                break // Rompemos el bucle para no buscar más
+            }
+        }
+        if !encontrado { print("Producto no encontrado en el sistema.") } // Si la bandera sigue falsa, avisamos que no existe
+    case 3: // Caso 3: Mostrar productos con poco stock
+        print("\nPRODUCTOS CON STOCK BAJO (<5):") // Imprimimos subtítulo
+        for i in 0..<nombresProd.count { // Recorremos todos los elementos
+            if stocksProd[i] < 5 { // Verificamos si el stock de la posición actual es menor a 5
+                print("\(nombresProd[i]) tiene solo \(stocksProd[i]) unidades disponibles") // Imprimimos el aviso del producto
+            }
+        }
+    case 4: // Caso 4: Calcular el valor de toda la mercancía
+        var totalInventario = 0.0 // Variable para ir sumando el dinero total
+        for i in 0..<nombresProd.count { // Recorremos todos los productos
+            totalInventario += preciosProd[i] * Double(stocksProd[i]) // Multiplicamos el precio por el stock de cada uno y lo sumamos
+        }
+        print("\nValor total del inventario: S/.\(totalInventario)") // Imprimimos el gran total
+    case 5: // Caso 5: Salir del programa
+        print("Saliendo del sistema...") // Imprimimos mensaje de despedida
+        salir = true // Cambiamos la bandera 'salir' a verdadero para que el while termine
+    default: // Caso por defecto para ingresos incorrectos
+        print("Opción inválida. Intente de nuevo.") // Mensaje de error si marca algo distinto del 1 al 5
+    }
+}
