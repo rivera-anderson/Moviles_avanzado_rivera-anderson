@@ -98,7 +98,53 @@ while !salir {
         } else {
             print("Estado              : NO ENCONTRADA")
         }
+
+
+          case 3:
+        print("\nSeleccione la PRIMERA linea (1-6): ", terminator: "")
+        let input1 = readLine() ?? ""
+        print("Seleccione la SEGUNDA linea (1-6): ", terminator: "")
+        let input2 = readLine() ?? ""
         
+        if let key1 = mapLineas[input1], let key2 = mapLineas[input2],
+           let array1 = redMetro[key1], let array2 = redMetro[key2] {
+            
+            let set1 = Set(array1)
+            let set2 = Set(array2)
+            let cruces = set1.intersection(set2)
+            
+            print("\n----------------------------------------\n REPORTE DE TRANSBORDOS\n----------------------------------------")
+            print("Linea origen  : Linea \(input1)\nLinea destino : Linea \(input2)")
+            
+            if cruces.isEmpty {
+                print("Conexion      : SIN CONEXION DIRECTA")
+            } else {
+                print("Conexion      : DISPONIBLE\nPunto(s)      : \(cruces.joined(separator: ", "))")
+            }
+        } else {
+            print("\n[ERROR] Datos de linea invalidos.")
+        }
+        
+    case 4:
+        print("\nSeleccione la linea a consultar avenidas (1-6): ", terminator: "")
+        let input = readLine() ?? ""
+        
+        if let key = mapLineas[input], let avenidas = avenidasMetro[key] {
+            print("\n+-------+---------------------------------------------+")
+            print("| ORDEN | DISTRITO / AVENIDA (LINEA \(input))                  |")
+            print("+-------+---------------------------------------------+")
+            
+            for (index, avenida) in avenidas.enumerated() {
+                let numStr = String(index + 1)
+                let paddingNum = String(repeating: " ", count: max(0, 5 - numStr.count))
+                let paddingAv = String(repeating: " ", count: max(0, 43 - avenida.count))
+                print("| \(numStr)\(paddingNum) | \(avenida)\(paddingAv) |")
+            }
+            print("+-------+---------------------------------------------+")
+        } else {
+            print("\n[ERROR] Linea no identificada en el sistema de avenidas.")
+        }
+
     case 5:
         print("\nFinalizando procesos del sistema...\nCerrando aplicacion.")
         salir = true
