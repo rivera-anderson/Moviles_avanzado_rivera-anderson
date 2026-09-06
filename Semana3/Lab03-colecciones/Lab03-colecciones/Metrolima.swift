@@ -40,3 +40,74 @@ print("\nPresione ENTER para iniciar el sistema...")
 _ = readLine()
 
 var salir = false
+
+
+// 3. MENU PRINCIPAL Y LOGICA DE BUSQUEDA
+while !salir {
+    print("\n==========================================================")
+    print("           PANEL DE CONTROL - METRO DE LIMA             ")
+    print("==========================================================")
+    print(" [ INFO DE RED VIGENTE ]")
+    print(" L1: 37.00 km  |  L2: 27.00 km  |  L3: 31.50 km")
+    print(" L4: 26.00 km  |  L5: 13.90 km  |  L6: 30.00 km")
+    print("----------------------------------------------------------")
+    print(" [ OPCIONES DEL SISTEMA ]")
+    print(" 1) Ver estaciones de una linea")
+    print(" 2) Buscar estacion en la red")
+    print(" 3) Consultar cruces / transbordos")
+    print(" 4) Ver distritos y avenidas de linea")
+    print(" 5) Salir del sistema")
+    print("==========================================================")
+    print("Seleccione una opcion [1-5]: ", terminator: "")
+    
+    let opcion = Int(readLine() ?? "0") ?? 0
+    
+    switch opcion {
+    case 1:
+        print("\nSeleccione la linea a consultar (1-6, o 7 para BRT): ", terminator: "")
+        let input = readLine() ?? ""
+        if let lineaClave = mapLineas[input], let estaciones = redMetro[lineaClave] {
+            let kilometros = kmLineas[input] ?? ""
+            print("\n----------------------------------------")
+            print(" REPORTE DE ESTACIONES: LINEA \(input) (\(kilometros))")
+            print("----------------------------------------")
+            for (indice, estacion) in estaciones.enumerated() {
+                let num = String(indice + 1)
+                let padding = String(repeating: " ", count: max(0, 3 - num.count))
+                print("[\(num)\(padding)] \(estacion)")
+            }
+        } else {
+            print("\n[ERROR] Linea no identificada.")
+        }
+        
+    case 2:
+        print("\nIngrese la estacion a buscar: ", terminator: "")
+        let buscar = readLine() ?? ""
+        var lineasEncontradas: [String] = []
+        for (nombreLinea, estaciones) in redMetro {
+            for est in estaciones {
+                if est.lowercased() == buscar.lowercased() {
+                    if !lineasEncontradas.contains(nombreLinea) { lineasEncontradas.append(nombreLinea) }
+                }
+            }
+        }
+        print("\n----------------------------------------\n RESULTADO DE BUSQUEDA\n----------------------------------------")
+        print("Estacion consultada : \(buscar)")
+        if lineasEncontradas.count > 0 {
+            print("Lineas disponibles  : \(lineasEncontradas.joined(separator: " - "))\nEstado              : OPERATIVO")
+        } else {
+            print("Estado              : NO ENCONTRADA")
+        }
+        
+    case 5:
+        print("\nFinalizando procesos del sistema...\nCerrando aplicacion.")
+        salir = true
+        continue
+        
+    default:
+        print("\n[ERROR] Opcion invalida o en construccion.")
+    }
+    
+    print("\nPresione ENTER para regresar al menu principal...")
+    _ = readLine()
+}
