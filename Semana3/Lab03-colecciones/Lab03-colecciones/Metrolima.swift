@@ -391,7 +391,208 @@ while !salir {
             print("\n ERROR: Línea de origen no encontrada.")
         }
         
-        
+        // ==========================================================
+        // 6) GESTIONAR TARJETA DE TRANSPORTE
+        // Permite adquirir tarjeta, consultar saldo, recargar
+        // y pagar el pasaje.
+        // ==========================================================
+
+    case 6:
+
+            var salirTarjeta = false
+
+            while !salirTarjeta {
+
+                print("\n========================================")
+                print("       TARJETA DE TRANSPORTE")
+                print("========================================")
+
+                if tieneTarjeta {
+
+                    print("Tarjeta: \(numeroTarjeta)")
+                    print(String(format: "Saldo: S/ %.2f", saldoTarjeta))
+
+                } else {
+
+                    print("Estado: NO POSEE TARJETA")
+                }
+
+                print("----------------------------------------")
+                print("1) Adquirir nueva tarjeta")
+                print("2) Consultar saldo")
+                print("3) Recargar saldo")
+                print("4) Pagar pasaje")
+                print("5) Regresar")
+                print("========================================")
+                print("Seleccione una opcion: ", terminator: "")
+
+                let opcionTarjeta = Int(readLine() ?? "0") ?? 0
+
+                switch opcionTarjeta {
+
+                // --------------------------------------------------
+                // ADQUIRIR TARJETA
+                // --------------------------------------------------
+
+                case 1:
+
+                    if tieneTarjeta {
+
+                        print("\n[ERROR] Ya posee una tarjeta.")
+                        print("Tarjeta actual: \(numeroTarjeta)")
+
+                    } else {
+
+                        // Generamos un numero simple para la tarjeta.
+                        numeroTarjeta = "METRO-" + String(Int.random(in: 10000...99999))
+
+                        // Activamos la tarjeta.
+                        tieneTarjeta = true
+
+                        // Saldo inicial.
+                        saldoTarjeta = 0.00
+
+                        print("\n[OK] Tarjeta adquirida correctamente.")
+                        print("Numero de tarjeta: \(numeroTarjeta)")
+                        print("Saldo inicial: S/ 0.00")
+                    }
+
+
+                // --------------------------------------------------
+                // CONSULTAR SALDO
+                // --------------------------------------------------
+
+                case 2:
+
+                    if tieneTarjeta {
+
+                        print("\n----------------------------------------")
+                        print("          CONSULTA DE SALDO")
+                        print("----------------------------------------")
+                        print("Tarjeta: \(numeroTarjeta)")
+
+                        print(
+                            String(
+                                format: "Saldo actual: S/ %.2f",
+                                saldoTarjeta
+                            )
+                        )
+
+                    } else {
+
+                        print("\n[ERROR] No posee una tarjeta.")
+                        print("Seleccione la opcion 1 para adquirir una.")
+                    }
+
+
+                // --------------------------------------------------
+                // RECARGAR SALDO
+                // --------------------------------------------------
+
+                case 3:
+
+                    if tieneTarjeta {
+
+                        print("\nIngrese monto de recarga: ", terminator: "")
+
+                        if let recarga = Double(readLine() ?? ""),
+                           recarga > 0 {
+
+                            saldoTarjeta += recarga
+
+                            print("\n[OK] Recarga realizada.")
+
+                            print(
+                                String(
+                                    format: "Saldo actual: S/ %.2f",
+                                    saldoTarjeta
+                                )
+                            )
+
+                        } else {
+
+                            print("\n[ERROR] Monto de recarga invalido.")
+                        }
+
+                    } else {
+
+                        print("\n[ERROR] Primero debe adquirir una tarjeta.")
+                    }
+
+
+                // --------------------------------------------------
+                // PAGAR PASAJE
+                // --------------------------------------------------
+
+                case 4:
+
+                    if tieneTarjeta {
+
+                        print("\n----------------------------------------")
+                        print("            PAGO DE PASAJE")
+                        print("----------------------------------------")
+
+                        print(
+                            String(
+                                format: "Tarifa: S/ %.2f",
+                                tarifaPasaje
+                            )
+                        )
+
+                        if saldoTarjeta >= tarifaPasaje {
+
+                            saldoTarjeta -= tarifaPasaje
+
+                            print("\n[OK] Pasaje pagado correctamente.")
+
+                            print(
+                                String(
+                                    format: "Saldo restante: S/ %.2f",
+                                    saldoTarjeta
+                                )
+                            )
+
+                        } else {
+
+                            print("\n[ERROR] Saldo insuficiente.")
+
+                            print(
+                                String(
+                                    format: "Saldo actual: S/ %.2f",
+                                    saldoTarjeta
+                                )
+                            )
+
+                            print("Realice una recarga para continuar.")
+                        }
+
+                    } else {
+
+                        print("\n[ERROR] No posee una tarjeta.")
+                        print("Primero debe adquirir una tarjeta.")
+                    }
+
+
+                // --------------------------------------------------
+                // REGRESAR
+                // --------------------------------------------------
+
+                case 5:
+
+                    salirTarjeta = true
+
+
+                default:
+
+                    print("\n[ERROR] Opcion invalida.")
+                }
+
+                if !salirTarjeta {
+
+                    print("\nPresione ENTER para continuar...")
+                    _ = readLine()
+                }
+            }
 
     case 8:
         print("\nFinalizando procesos del sistema...\nCerrando aplicacion.")
