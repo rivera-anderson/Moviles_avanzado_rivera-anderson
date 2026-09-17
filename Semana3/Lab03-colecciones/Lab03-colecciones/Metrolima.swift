@@ -1,20 +1,23 @@
 // Desarrollado por: rivera anderson
 import Foundation
-// ================================================================
-// DATOS DE LA TARJETA DE TRANSPORTE
-// ================================================================
 
-// Indica si el usuario posee una tarjeta.
-var tieneTarjeta = false
+var tarjetasLinea: Set<String> = []
 
-// Saldo de la tarjeta.
-var saldoTarjeta: Double = 0.00
+var numerosTarjeta: [String: String] = [:]
 
-// Numero de tarjeta generado para el usuario.
-var numeroTarjeta = ""
+var saldosTarjeta: [String: Double] = [:]
 
 // Tarifa del pasaje.
 let tarifaPasaje: Double = 1.50
+// ================================================================
+// ESTADO DE ESTACIONES Y LINEAS
+// ================================================================
+
+// Guarda las estaciones que estan temporalmente deshabilitadas.
+var estacionesDeshabilitadas: Set<String> = []
+
+// Guarda las lineas que estan temporalmente deshabilitadas.
+var lineasDeshabilitadas: Set<String> = []
 
 // 1. DICCIONARIOS DE DATOS
 var redMetro: [String: [String]] = [
@@ -36,8 +39,8 @@ var avenidasMetro: [String: [String]] = [
     "L6": ["Los Olivos", "Av. Universitaria", "Av. La Paz", "Av. Angamos", "Av. Primavera", "Surco"]
 ]
 
-let mapLineas = ["1": "L1", "2": "L2", "3": "L3", "4": "L4", "5": "L5", "6": "L6", "7": "BRT"]
-let kmLineas = ["1": "37.00 km", "2": "27.00 km", "3": "31.50 km", "4": "26.00 km", "5": "13.90 km", "6": "30.00 km", "7": "Ruta Exclusiva"]
+var mapLineas = ["1": "L1", "2": "L2", "3": "L3", "4": "L4", "5": "L5", "6": "L6", "7": "BRT"]
+var kmLineas = ["1": "37.00 km", "2": "27.00 km", "3": "31.50 km", "4": "26.00 km", "5": "13.90 km", "6": "30.00 km", "7": "Ruta Exclusiva"]
 
 
 // 2. PANTALLA DE INICIO (SPLASH SCREEN LOGO)
@@ -404,25 +407,14 @@ while !salir {
             while !salirTarjeta {
 
                 print("\n========================================")
-                print("       TARJETA DE TRANSPORTE")
+                print("       TARJETAS DE TRANSPORTE")
                 print("========================================")
-
-                if tieneTarjeta {
-
-                    print("Tarjeta: \(numeroTarjeta)")
-                    print(String(format: "Saldo: S/ %.2f", saldoTarjeta))
-
-                } else {
-
-                    print("Estado: NO POSEE TARJETA")
-                }
-
-                print("----------------------------------------")
-                print("1) Adquirir nueva tarjeta")
+                print("1) Adquirir tarjeta de una linea")
                 print("2) Consultar saldo")
                 print("3) Recargar saldo")
                 print("4) Pagar pasaje")
-                print("5) Regresar")
+                print("5) Ver tarjetas adquiridas")
+                print("6) Regresar")
                 print("========================================")
                 print("Seleccione una opcion: ", terminator: "")
 
@@ -430,154 +422,246 @@ while !salir {
 
                 switch opcionTarjeta {
 
-                // --------------------------------------------------
-                // ADQUIRIR TARJETA
-                // --------------------------------------------------
+                // ==================================================
+                // 1) ADQUIRIR TARJETA
+                // ==================================================
 
                 case 1:
 
-                    if tieneTarjeta {
+                    print("\nSeleccione la linea de la tarjeta (1-6): ", terminator: "")
+                    let numeroLinea = readLine() ?? ""
 
-                        print("\n[ERROR] Ya posee una tarjeta.")
-                        print("Tarjeta actual: \(numeroTarjeta)")
+                    if let linea = mapLineas[numeroLinea] {
+
+                        if linea == "BRT" {
+
+                            print("\n[ERROR] El BRT no utiliza tarjeta propia.")
+
+                        } else if tarjetasLinea.contains(linea) {
+
+                            print("\n[ERROR] Ya posee una tarjeta para \(linea).")
+                            print("Numero de tarjeta: \(numerosTarjeta[linea] ?? "")")
+
+                        } else {
+
+                            let numeroNuevo = Int.random(in: 10000...99999)
+
+                            let numeroTarjetaNueva = "METRO-\(linea)-\(numeroNuevo)"
+
+                            tarjetasLinea.insert(linea)
+
+                            numerosTarjeta[linea] = numeroTarjetaNueva
+
+                            saldosTarjeta[linea] = 0.00
+
+                            print("\n[OK] Tarjeta adquirida correctamente.")
+                            print("Linea: \(linea)")
+                            print("Numero de tarjeta: \(numeroTarjetaNueva)")
+                            print("Saldo inicial: S/ 0.00")
+                        }
 
                     } else {
 
-                        // Generamos un numero simple para la tarjeta.
-                        numeroTarjeta = "METRO-" + String(Int.random(in: 10000...99999))
-
-                        // Activamos la tarjeta.
-                        tieneTarjeta = true
-
-                        // Saldo inicial.
-                        saldoTarjeta = 0.00
-
-                        print("\n[OK] Tarjeta adquirida correctamente.")
-                        print("Numero de tarjeta: \(numeroTarjeta)")
-                        print("Saldo inicial: S/ 0.00")
+                        print("\n[ERROR] Linea no encontrada.")
                     }
 
 
-                // --------------------------------------------------
-                // CONSULTAR SALDO
-                // --------------------------------------------------
+                // ==================================================
+                // 2) CONSULTAR SALDO
+                // ==================================================
 
                 case 2:
 
-                    if tieneTarjeta {
+                    print("\nSeleccione la linea de la tarjeta (1-6): ", terminator: "")
+                    let numeroLinea = readLine() ?? ""
 
-                        print("\n----------------------------------------")
-                        print("          CONSULTA DE SALDO")
-                        print("----------------------------------------")
-                        print("Tarjeta: \(numeroTarjeta)")
+                    if let linea = mapLineas[numeroLinea] {
 
-                        print(
-                            String(
-                                format: "Saldo actual: S/ %.2f",
-                                saldoTarjeta
+                        if tarjetasLinea.contains(linea) {
+
+                            let numeroTarjeta = numerosTarjeta[linea] ?? ""
+                            let saldo = saldosTarjeta[linea] ?? 0.00
+
+                            print("\n----------------------------------------")
+                            print("          CONSULTA DE SALDO")
+                            print("----------------------------------------")
+                            print("Linea: \(linea)")
+                            print("Tarjeta: \(numeroTarjeta)")
+
+                            print(
+                                String(
+                                    format: "Saldo actual: S/ %.2f",
+                                    saldo
+                                )
                             )
-                        )
+
+                        } else {
+
+                            print("\n[ERROR] No posee tarjeta para \(linea).")
+                            print("Seleccione la opcion 1 para adquirir una.")
+                        }
 
                     } else {
 
-                        print("\n[ERROR] No posee una tarjeta.")
-                        print("Seleccione la opcion 1 para adquirir una.")
+                        print("\n[ERROR] Linea no encontrada.")
                     }
 
 
-                // --------------------------------------------------
-                // RECARGAR SALDO
-                // --------------------------------------------------
+                // ==================================================
+                // 3) RECARGAR SALDO
+                // ==================================================
 
                 case 3:
 
-                    if tieneTarjeta {
+                    print("\nSeleccione la linea de la tarjeta (1-6): ", terminator: "")
+                    let numeroLinea = readLine() ?? ""
 
-                        print("\nIngrese monto de recarga: ", terminator: "")
+                    if let linea = mapLineas[numeroLinea] {
 
-                        if let recarga = Double(readLine() ?? ""),
-                           recarga > 0 {
+                        if tarjetasLinea.contains(linea) {
 
-                            saldoTarjeta += recarga
+                            print("Ingrese monto de recarga: ", terminator: "")
 
-                            print("\n[OK] Recarga realizada.")
+                            if let recarga = Double(readLine() ?? ""),
+                               recarga > 0 {
 
-                            print(
-                                String(
-                                    format: "Saldo actual: S/ %.2f",
-                                    saldoTarjeta
+                                saldosTarjeta[linea, default: 0.00] += recarga
+
+                                let nuevoSaldo = saldosTarjeta[linea] ?? 0.00
+
+                                print("\n[OK] Recarga realizada.")
+
+                                print(
+                                    String(
+                                        format: "Saldo actual: S/ %.2f",
+                                        nuevoSaldo
+                                    )
                                 )
-                            )
+
+                            } else {
+
+                                print("\n[ERROR] Monto de recarga invalido.")
+                            }
 
                         } else {
 
-                            print("\n[ERROR] Monto de recarga invalido.")
+                            print("\n[ERROR] No posee tarjeta para \(linea).")
+                            print("Primero debe adquirirla.")
                         }
 
                     } else {
 
-                        print("\n[ERROR] Primero debe adquirir una tarjeta.")
+                        print("\n[ERROR] Linea no encontrada.")
                     }
 
 
-                // --------------------------------------------------
-                // PAGAR PASAJE
-                // --------------------------------------------------
+                // ==================================================
+                // 4) PAGAR PASAJE
+                // ==================================================
 
                 case 4:
 
-                    if tieneTarjeta {
+                    print("\nSeleccione la linea de la tarjeta (1-6): ", terminator: "")
+                    let numeroLinea = readLine() ?? ""
 
-                        print("\n----------------------------------------")
-                        print("            PAGO DE PASAJE")
-                        print("----------------------------------------")
+                    if let linea = mapLineas[numeroLinea] {
 
-                        print(
-                            String(
-                                format: "Tarifa: S/ %.2f",
-                                tarifaPasaje
-                            )
-                        )
+                        if tarjetasLinea.contains(linea) {
 
-                        if saldoTarjeta >= tarifaPasaje {
+                            let saldoActual = saldosTarjeta[linea] ?? 0.00
 
-                            saldoTarjeta -= tarifaPasaje
-
-                            print("\n[OK] Pasaje pagado correctamente.")
+                            print("\n----------------------------------------")
+                            print("            PAGO DE PASAJE")
+                            print("----------------------------------------")
+                            print("Linea: \(linea)")
 
                             print(
                                 String(
-                                    format: "Saldo restante: S/ %.2f",
-                                    saldoTarjeta
+                                    format: "Tarifa: S/ %.2f",
+                                    tarifaPasaje
                                 )
                             )
+
+                            if saldoActual >= tarifaPasaje {
+
+                                saldosTarjeta[linea] = saldoActual - tarifaPasaje
+
+                                let saldoRestante = saldosTarjeta[linea] ?? 0.00
+
+                                print("\n[OK] Pasaje pagado correctamente.")
+
+                                print(
+                                    String(
+                                        format: "Saldo restante: S/ %.2f",
+                                        saldoRestante
+                                    )
+                                )
+
+                            } else {
+
+                                print("\n[ERROR] Saldo insuficiente.")
+
+                                print(
+                                    String(
+                                        format: "Saldo actual: S/ %.2f",
+                                        saldoActual
+                                    )
+                                )
+
+                                print("Realice una recarga para continuar.")
+                            }
 
                         } else {
 
-                            print("\n[ERROR] Saldo insuficiente.")
-
-                            print(
-                                String(
-                                    format: "Saldo actual: S/ %.2f",
-                                    saldoTarjeta
-                                )
-                            )
-
-                            print("Realice una recarga para continuar.")
+                            print("\n[ERROR] No posee tarjeta para \(linea).")
+                            print("Primero debe adquirir una tarjeta.")
                         }
 
                     } else {
 
-                        print("\n[ERROR] No posee una tarjeta.")
-                        print("Primero debe adquirir una tarjeta.")
+                        print("\n[ERROR] Linea no encontrada.")
                     }
 
 
-                // --------------------------------------------------
-                // REGRESAR
-                // --------------------------------------------------
+                // ==================================================
+                // 5) VER TARJETAS ADQUIRIDAS
+                // ==================================================
 
                 case 5:
+
+                    print("\n----------------------------------------")
+                    print("       TARJETAS ADQUIRIDAS")
+                    print("----------------------------------------")
+
+                    if tarjetasLinea.isEmpty {
+
+                        print("No posee tarjetas actualmente.")
+
+                    } else {
+
+                        for linea in tarjetasLinea.sorted() {
+
+                            let numero = numerosTarjeta[linea] ?? ""
+                            let saldo = saldosTarjeta[linea] ?? 0.00
+
+                            print("\nLinea: \(linea)")
+                            print("Tarjeta: \(numero)")
+
+                            print(
+                                String(
+                                    format: "Saldo: S/ %.2f",
+                                    saldo
+                                )
+                            )
+                        }
+                    }
+
+
+                // ==================================================
+                // 6) REGRESAR
+                // ==================================================
+
+                case 6:
 
                     salirTarjeta = true
 
@@ -594,6 +678,8 @@ while !salir {
                 }
             }
 
+
+     
     case 8:
         print("\nFinalizando procesos del sistema...\nCerrando aplicacion.")
         salir = true
