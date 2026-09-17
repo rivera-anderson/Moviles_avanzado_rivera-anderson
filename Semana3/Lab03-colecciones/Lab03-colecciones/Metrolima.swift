@@ -1,5 +1,20 @@
 // Desarrollado por: rivera anderson
 import Foundation
+// ================================================================
+// DATOS DE LA TARJETA DE TRANSPORTE
+// ================================================================
+
+// Indica si el usuario posee una tarjeta.
+var tieneTarjeta = false
+
+// Saldo de la tarjeta.
+var saldoTarjeta: Double = 0.00
+
+// Numero de tarjeta generado para el usuario.
+var numeroTarjeta = ""
+
+// Tarifa del pasaje.
+let tarifaPasaje: Double = 1.50
 
 // 1. DICCIONARIOS DE DATOS
 var redMetro: [String: [String]] = [
@@ -56,7 +71,10 @@ while !salir {
     print(" 2) Buscar estacion en la red")
     print(" 3) Consultar cruces / transbordos")
     print(" 4) Ver distritos y avenidas de linea")
-    print(" 5) Salir del sistema")
+    print(" 5) Planificar viaje / estaciones restantes")
+    print(" 6) Gestionar tarjeta de transporte")
+    print(" 7) Modo Administrador")
+    print(" 8) Salir del sistema")
     print("==========================================================")
     print("Seleccione una opcion [1-5]: ", terminator: "")
     
@@ -144,8 +162,238 @@ while !salir {
         } else {
             print("\n[ERROR] Linea no identificada en el sistema de avenidas.")
         }
-
     case 5:
+
+        // Función auxiliar para formatear celdas de tabla en la consola
+        func celda(_ texto: String, ancho: Int) -> String {
+            if texto.count >= ancho {
+                return String(texto.prefix(ancho))
+            }
+            return texto + String(repeating: " ", count: ancho - texto.count)
+        }
+
+        print("""
+
+        ┌──────────────────────────────────────────────────────────┐
+        │                     PLANIFICAR VIAJE                     │
+        └──────────────────────────────────────────────────────────┘
+        """)
+
+        // ------------------------------------------------------
+        // SELECCIONAR LINEA DE ORIGEN
+        // ------------------------------------------------------
+
+        print("➜ Seleccione la LÍNEA DE ORIGEN (1-6): ", terminator: "")
+        let lineaOrigenInput = readLine() ?? ""
+
+        if let lineaOrigen = mapLineas[lineaOrigenInput],
+           let estacionesOrigen = redMetro[lineaOrigen] {
+
+            print("\n┌──────┬───────────────────────────────────────────────────┐")
+            print("│  #   │ ESTACIONES DE LA LÍNEA \(celda(lineaOrigenInput, ancho: 26))│")
+            print("├──────┼───────────────────────────────────────────────────┤")
+
+            for (indice, estacion) in estacionesOrigen.enumerated() {
+                let num = celda("\(indice + 1)", ancho: 4)
+                let nom = celda(estacion, ancho: 49)
+                print("│ \(num) │ \(nom) │")
+            }
+            print("└──────┴───────────────────────────────────────────────────┘")
+
+            // --------------------------------------------------
+            // SELECCIONAR ESTACION DE ORIGEN
+            // --------------------------------------------------
+
+            print("\n➜ Seleccione el número de su estación actual: ", terminator: "")
+            let estacionOrigenInput = Int(readLine() ?? "0") ?? 0
+
+            if estacionOrigenInput >= 1 && estacionOrigenInput <= estacionesOrigen.count {
+
+                let origen = estacionesOrigen[estacionOrigenInput - 1]
+                print("\n  [✓] Estación actual: \(origen)")
+
+                // --------------------------------------------------
+                // SELECCIONAR LINEA DE DESTINO
+                // --------------------------------------------------
+
+                print("\n➜ Seleccione la LÍNEA DE DESTINO (1-6): ", terminator: "")
+                let lineaDestinoInput = readLine() ?? ""
+
+                if let lineaDestino = mapLineas[lineaDestinoInput],
+                   let estacionesDestino = redMetro[lineaDestino] {
+
+                    print("\n┌──────┬───────────────────────────────────────────────────┐")
+                    print("│  #   │ ESTACIONES DE LA LÍNEA \(celda(lineaDestinoInput, ancho: 26))│")
+                    print("├──────┼───────────────────────────────────────────────────┤")
+
+                    for (indice, estacion) in estacionesDestino.enumerated() {
+                        let num = celda("\(indice + 1)", ancho: 4)
+                        let nom = celda(estacion, ancho: 49)
+                        print("│ \(num) │ \(nom) │")
+                    }
+                    print("└──────┴───────────────────────────────────────────────────┘")
+
+                    // --------------------------------------------------
+                    // SELECCIONAR ESTACION DE DESTINO
+                    // --------------------------------------------------
+
+                    print("\n➜ Seleccione el número de su destino: ", terminator: "")
+                    let estacionDestinoInput = Int(readLine() ?? "0") ?? 0
+
+                    if estacionDestinoInput >= 1 && estacionDestinoInput <= estacionesDestino.count {
+
+                        let destino = estacionesDestino[estacionDestinoInput - 1]
+                        print("\n  [✓] Destino seleccionado: \(destino)")
+
+                        // ==================================================
+                        // RUTA DIRECTA
+                        // ==================================================
+
+                        if lineaOrigen == lineaDestino {
+
+                            let cantidadEstaciones = abs(estacionDestinoInput - estacionOrigenInput)
+
+                            print("\n┌──────────────────────────────────────────────────────────┐")
+                            print("│                        RUTA DIRECTA                      │")
+                            print("├──────────────────────────────┬───────────────────────────┤")
+                            print("│ Línea                        │ \(celda(lineaOrigenInput, ancho: 25)) │")
+                            print("│ Estación Origen              │ \(celda(origen, ancho: 25)) │")
+                            print("│ Estación Destino             │ \(celda(destino, ancho: 25)) │")
+                            print("│ Estaciones Faltantes         │ \(celda("\(cantidadEstaciones)", ancho: 25)) │")
+                            print("└──────────────────────────────┴───────────────────────────┘")
+
+                            if cantidadEstaciones == 0 {
+                                print("\n  [!] Estado: YA SE ENCUENTRA EN EL DESTINO.")
+                            } else {
+                                print("\n┌──────────────────────────────────────────────────────────┐")
+                                print("│ RECORRIDO DE LA RUTA                                     │")
+                                print("├──────┬───────────────────────────────────────────────────┤")
+
+                                if estacionDestinoInput > estacionOrigenInput {
+                                    for i in estacionOrigenInput..<estacionDestinoInput {
+                                        let num = celda("\(i + 1)", ancho: 4)
+                                        let nom = celda(estacionesOrigen[i], ancho: 49)
+                                        print("│ \(num) │ \(nom) │")
+                                    }
+                                } else {
+                                    for i in stride(from: estacionOrigenInput - 2, through: estacionDestinoInput - 1, by: -1) {
+                                        let num = celda("\(i + 1)", ancho: 4)
+                                        let nom = celda(estacionesOrigen[i], ancho: 49)
+                                        print("│ \(num) │ \(nom) │")
+                                    }
+                                }
+                                print("└──────┴───────────────────────────────────────────────────┘")
+                            }
+
+                        } else {
+
+                            // ==================================================
+                            // RUTA CON TRANSBORDO
+                            // ==================================================
+
+                            let conjuntoOrigen = Set(estacionesOrigen)
+                            let conjuntoDestino = Set(estacionesDestino)
+                            let cruces = conjuntoOrigen.intersection(conjuntoDestino)
+
+                            if cruces.isEmpty {
+
+                                print("""
+
+                                ┌──────────────────────────────────────────────────────────┐
+                                │ [ERROR] NO EXISTE CONEXIÓN DIRECTA ENTRE ESTAS LÍNEAS.   │
+                                └──────────────────────────────────────────────────────────┘
+                                """)
+
+                            } else {
+
+                                let transbordo = cruces.first!
+
+                                if let posicionTransbordoOrigen = estacionesOrigen.firstIndex(of: transbordo),
+                                   let posicionTransbordoDestino = estacionesDestino.firstIndex(of: transbordo) {
+
+                                    let estacionesPrimerTramo = abs(posicionTransbordoOrigen - (estacionOrigenInput - 1))
+                                    let estacionesSegundoTramo = abs((estacionDestinoInput - 1) - posicionTransbordoDestino)
+                                    let totalEstaciones = estacionesPrimerTramo + estacionesSegundoTramo
+
+                                    print("\n┌──────────────────────────────────────────────────────────┐")
+                                    print("│                   RUTA CON TRANSBORDO                    │")
+                                    print("├──────────────────────────────┬───────────────────────────┤")
+                                    print("│ Estación Origen              │ \(celda(origen, ancho: 25)) │")
+                                    print("│ Línea Origen                 │ \(celda(lineaOrigenInput, ancho: 25)) │")
+                                    print("│ Punto de Transbordo          │ \(celda(transbordo, ancho: 25)) │")
+                                    print("│ Línea Destino                │ \(celda(lineaDestinoInput, ancho: 25)) │")
+                                    print("│ Estación Destino             │ \(celda(destino, ancho: 25)) │")
+                                    print("├──────────────────────────────┼───────────────────────────┤")
+                                    print("│ Estaciones Tramo 1           │ \(celda("\(estacionesPrimerTramo)", ancho: 25)) │")
+                                    print("│ Estaciones Tramo 2           │ \(celda("\(estacionesSegundoTramo)", ancho: 25)) │")
+                                    print("│ Total Estaciones             │ \(celda("\(totalEstaciones)", ancho: 25)) │")
+                                    print("└──────────────────────────────┴───────────────────────────┘")
+
+                                    // TRAMO 1
+                                    print("\n┌──────┬───────────────────────────────────────────────────┐")
+                                    print("│  #   │ TRAMO 1: LÍNEA \(celda(lineaOrigenInput, ancho: 34))│")
+                                    print("├──────┼───────────────────────────────────────────────────┤")
+
+                                    if posicionTransbordoOrigen > estacionOrigenInput - 1 {
+                                        for i in estacionOrigenInput...posicionTransbordoOrigen {
+                                            let num = celda("\(i + 1)", ancho: 4)
+                                            let nom = celda(estacionesOrigen[i], ancho: 49)
+                                            print("│ \(num) │ \(nom) │")
+                                        }
+                                    } else {
+                                        for i in stride(from: estacionOrigenInput - 2, through: posicionTransbordoOrigen, by: -1) {
+                                            let num = celda("\(i + 1)", ancho: 4)
+                                            let nom = celda(estacionesOrigen[i], ancho: 49)
+                                            print("│ \(num) │ \(nom) │")
+                                        }
+                                    }
+                                    print("└──────┴───────────────────────────────────────────────────┘")
+
+                                    // NOTIFICACIÓN DE TRANSBORDO
+                                    print("\n  🔄 TRANSBORDO EN ESTACIÓN: [ \(transbordo) ]\n")
+
+                                    // TRAMO 2
+                                    print("┌──────┬───────────────────────────────────────────────────┐")
+                                    print("│  #   │ TRAMO 2: LÍNEA \(celda(lineaDestinoInput, ancho: 34))│")
+                                    print("├──────┼───────────────────────────────────────────────────┤")
+
+                                    if estacionDestinoInput - 1 > posicionTransbordoDestino {
+                                        for i in (posicionTransbordoDestino + 1)..<estacionDestinoInput {
+                                            let num = celda("\(i + 1)", ancho: 4)
+                                            let nom = celda(estacionesDestino[i], ancho: 49)
+                                            print("│ \(num) │ \(nom) │")
+                                        }
+                                    } else if estacionDestinoInput - 1 < posicionTransbordoDestino {
+                                        for i in stride(from: posicionTransbordoDestino - 1, through: estacionDestinoInput - 1, by: -1) {
+                                            let num = celda("\(i + 1)", ancho: 4)
+                                            let nom = celda(estacionesDestino[i], ancho: 49)
+                                            print("│ \(num) │ \(nom) │")
+                                        }
+                                    }
+                                    print("└──────┴───────────────────────────────────────────────────┘")
+                                }
+                            }
+                        }
+
+                    } else {
+                        print("\n ERROR: Número de estación inválido.")
+                    }
+
+                } else {
+                    print("\n ERROR: Línea de destino no encontrada.")
+                }
+
+            } else {
+                print("\n  ERROR: Número de estación inválido.")
+            }
+
+        } else {
+            print("\n ERROR: Línea de origen no encontrada.")
+        }
+        
+        
+
+    case 8:
         print("\nFinalizando procesos del sistema...\nCerrando aplicacion.")
         salir = true
         continue
