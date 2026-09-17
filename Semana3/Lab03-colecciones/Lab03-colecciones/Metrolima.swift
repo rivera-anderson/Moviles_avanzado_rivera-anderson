@@ -679,7 +679,362 @@ while !salir {
             }
 
 
-     
+    case 7:
+                print("\n========================================")
+                print("          MODO ADMINISTRADOR")
+                print("========================================")
+                print("Ingrese contraseña: ", terminator: "")
+
+                let contraseñaAdmin = readLine() ?? ""
+
+                if contraseñaAdmin != "admin123" {
+
+                    print("\n[ERROR] Contraseña incorrecta.")
+
+                } else {
+
+                    var salirAdmin = false
+
+                    while !salirAdmin {
+
+                        print("\n========================================")
+                        print("          PANEL ADMINISTRADOR")
+                        print("========================================")
+                        print("1) Agregar estacion")
+                        print("2) Agregar nueva linea")
+                        print("3) Deshabilitar estacion")
+                        print("4) Habilitar estacion")
+                        print("5) Deshabilitar linea")
+                        print("6) Habilitar linea")
+                        print("7) Ver estado de la red")
+                        print("8) Regresar")
+                        print("========================================")
+                        print("Seleccione una opcion: ", terminator: "")
+
+                        let opcionAdmin = Int(readLine() ?? "0") ?? 0
+
+                        switch opcionAdmin {
+
+                        // ==================================================
+                        // 1) AGREGAR ESTACION
+                        // ==================================================
+
+                        case 1:
+
+                            print("\nIngrese numero de linea (1-6): ", terminator: "")
+                            let numeroLinea = readLine() ?? ""
+
+                            if let claveLinea = mapLineas[numeroLinea],
+                               let estaciones = redMetro[claveLinea] {
+
+                                print("\nLinea seleccionada: \(claveLinea)")
+                                print("Ingrese nombre de la nueva estacion: ", terminator: "")
+
+                                let nuevaEstacion = readLine() ?? ""
+
+                                if nuevaEstacion.isEmpty {
+
+                                    print("\n[ERROR] El nombre no puede estar vacio.")
+
+                                } else if estaciones.contains(nuevaEstacion) {
+
+                                    print("\n[ERROR] Esa estacion ya existe en la linea.")
+
+                                } else {
+
+                                    redMetro[claveLinea]?.append(nuevaEstacion)
+
+                                    print("\n[OK] Estacion agregada correctamente.")
+                                    print("Linea: \(claveLinea)")
+                                    print("Estacion: \(nuevaEstacion)")
+                                }
+
+                            } else {
+
+                                print("\n[ERROR] Linea no encontrada.")
+                            }
+
+
+                        // ==================================================
+                        // 2) AGREGAR NUEVA LINEA
+                        // ==================================================
+
+                        case 2:
+
+                            print("\nIngrese numero de la nueva linea: ", terminator: "")
+                            let numeroNuevaLinea = readLine() ?? ""
+
+                            if numeroNuevaLinea.isEmpty {
+
+                                print("\n[ERROR] Numero de linea invalido.")
+
+                            } else if mapLineas[numeroNuevaLinea] != nil {
+
+                                print("\n[ERROR] Esa linea ya existe.")
+
+                            } else {
+
+                                let nuevaLinea = "L\(numeroNuevaLinea)"
+
+                                print("Ingrese primera estacion: ", terminator: "")
+                                let primeraEstacion = readLine() ?? ""
+
+                                if primeraEstacion.isEmpty {
+
+                                    print("\n[ERROR] Debe ingresar una estacion.")
+
+                                } else {
+
+                                    redMetro[nuevaLinea] = [primeraEstacion]
+                                    mapLineas[numeroNuevaLinea] = nuevaLinea
+                                    kmLineas[numeroNuevaLinea] = "Por determinar"
+
+                                    print("\n[OK] Nueva linea creada.")
+                                    print("Linea: \(nuevaLinea)")
+                                    print("Primera estacion: \(primeraEstacion)")
+                                }
+                            }
+
+
+                        // ==================================================
+                        // 3) DESHABILITAR ESTACION
+                        // ==================================================
+
+                        case 3:
+
+                            print("\nIngrese numero de linea: ", terminator: "")
+                            let numeroLinea = readLine() ?? ""
+
+                            if let claveLinea = mapLineas[numeroLinea],
+                               let estaciones = redMetro[claveLinea] {
+
+                                if lineasDeshabilitadas.contains(claveLinea) {
+
+                                    print("\n[ERROR] La linea completa esta deshabilitada.")
+
+                                } else {
+
+                                    print("\nEstaciones de \(claveLinea):")
+
+                                    for (indice, estacion) in estaciones.enumerated() {
+
+                                        if estacionesDeshabilitadas.contains(estacion) {
+
+                                            print(" \(indice + 1)) [CERRADA] \(estacion)")
+
+                                        } else {
+
+                                            print(" \(indice + 1)) \(estacion)")
+                                        }
+                                    }
+
+                                    print("\nSeleccione numero de estacion: ", terminator: "")
+                                    let numeroEstacion = Int(readLine() ?? "0") ?? 0
+
+                                    if numeroEstacion >= 1 &&
+                                       numeroEstacion <= estaciones.count {
+
+                                        let estacion = estaciones[numeroEstacion - 1]
+
+                                        estacionesDeshabilitadas.insert(estacion)
+
+                                        print("\n[OK] Estacion deshabilitada.")
+                                        print("Linea: \(claveLinea)")
+                                        print("Estacion: \(estacion)")
+                                        print("Motivo: Accidente / mantenimiento")
+
+                                    } else {
+
+                                        print("\n[ERROR] Numero de estacion invalido.")
+                                    }
+                                }
+
+                            } else {
+
+                                print("\n[ERROR] Linea no encontrada.")
+                            }
+
+
+                        // ==================================================
+                        // 4) HABILITAR ESTACION
+                        // ==================================================
+
+                        case 4:
+
+                            if estacionesDeshabilitadas.isEmpty {
+
+                                print("\nNo existen estaciones deshabilitadas.")
+
+                            } else {
+
+                                print("\n========================================")
+                                print("     ESTACIONES DESHABILITADAS")
+                                print("========================================")
+
+                                for estacion in estacionesDeshabilitadas.sorted() {
+
+                                    print(" - \(estacion)")
+                                }
+
+                                print("\nIngrese nombre exacto de la estacion: ", terminator: "")
+                                let estacion = readLine() ?? ""
+
+                                if estacionesDeshabilitadas.contains(estacion) {
+
+                                    estacionesDeshabilitadas.remove(estacion)
+
+                                    print("\n[OK] Estacion habilitada nuevamente.")
+                                    print("Estacion: \(estacion)")
+
+                                } else {
+
+                                    print("\n[ERROR] Esa estacion no esta deshabilitada.")
+                                }
+                            }
+
+
+                        // ==================================================
+                        // 5) DESHABILITAR LINEA
+                        // ==================================================
+
+                        case 5:
+
+                            print("\nIngrese numero de linea: ", terminator: "")
+                            let numeroLinea = readLine() ?? ""
+
+                            if let claveLinea = mapLineas[numeroLinea] {
+
+                                if lineasDeshabilitadas.contains(claveLinea) {
+
+                                    print("\n[ERROR] Esa linea ya esta deshabilitada.")
+
+                                } else {
+
+                                    lineasDeshabilitadas.insert(claveLinea)
+
+                                    print("\n[OK] Linea deshabilitada.")
+                                    print("Linea: \(claveLinea)")
+                                    print("Motivo: Fuera de horario / mantenimiento / incidente")
+                                }
+
+                            } else {
+
+                                print("\n[ERROR] Linea no encontrada.")
+                            }
+
+
+                        // ==================================================
+                        // 6) HABILITAR LINEA
+                        // ==================================================
+
+                        case 6:
+
+                            if lineasDeshabilitadas.isEmpty {
+
+                                print("\nNo existen lineas deshabilitadas.")
+
+                            } else {
+
+                                print("\n========================================")
+                                print("        LINEAS DESHABILITADAS")
+                                print("========================================")
+
+                                for linea in lineasDeshabilitadas.sorted() {
+
+                                    print(" - \(linea)")
+                                }
+
+                                print("\nIngrese numero de linea: ", terminator: "")
+                                let numeroLinea = readLine() ?? ""
+
+                                if let claveLinea = mapLineas[numeroLinea] {
+
+                                    if lineasDeshabilitadas.contains(claveLinea) {
+
+                                        lineasDeshabilitadas.remove(claveLinea)
+
+                                        print("\n[OK] Linea habilitada nuevamente.")
+                                        print("Linea: \(claveLinea)")
+
+                                    } else {
+
+                                        print("\n[ERROR] Esa linea no esta deshabilitada.")
+                                    }
+
+                                } else {
+
+                                    print("\n[ERROR] Linea no encontrada.")
+                                }
+                            }
+
+
+                        // ==================================================
+                        // 7) VER ESTADO DE LA RED
+                        // ==================================================
+
+                        case 7:
+
+                            print("\n========================================")
+                            print("          ESTADO DE LA RED")
+                            print("========================================")
+
+                            let lineasOrdenadas = redMetro.keys.sorted()
+
+                            for linea in lineasOrdenadas {
+
+                                if lineasDeshabilitadas.contains(linea) {
+
+                                    print("\n\(linea) -> [X] LINEA DESHABILITADA")
+
+                                } else {
+
+                                    print("\n\(linea) -> [OK] LINEA OPERATIVA")
+                                }
+
+                                if let estaciones = redMetro[linea] {
+
+                                    for estacion in estaciones {
+
+                                        if estacionesDeshabilitadas.contains(estacion) {
+
+                                            print("    [X] \(estacion) -> CERRADA")
+
+                                        } else {
+
+                                            print("    [OK] \(estacion) -> OPERATIVA")
+                                        }
+                                    }
+                                }
+                            }
+
+
+                        // ==================================================
+                        // 8) REGRESAR
+                        // ==================================================
+
+                        case 8:
+
+                            salirAdmin = true
+                            print("\nRegresando al menu principal...")
+
+
+                        // ==================================================
+                        // OPCION INVALIDA
+                        // ==================================================
+
+                        default:
+
+                            print("\n[ERROR] Opcion invalida.")
+                        }
+
+                        if !salirAdmin {
+
+                            print("\nPresione ENTER para continuar...")
+                            _ = readLine()
+                        }
+                    }
+                }
+        
     case 8:
         print("\nFinalizando procesos del sistema...\nCerrando aplicacion.")
         salir = true
