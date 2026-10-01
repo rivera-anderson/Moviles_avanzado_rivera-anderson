@@ -1,0 +1,12 @@
+//
+//  VentasModel.swift
+//  VentasApp
+//
+//  Created by Tecsup on 1/10/26.
+//
+
+import UIKit
+
+class VentasModel: NSObject {
+
+}
