@@ -1,6 +1,6 @@
 //
 //  AppDelegate.swift
-//  VentasApp
+//  Calculadora
 //
 //  Created by Tecsup on 1/10/26.
 //
