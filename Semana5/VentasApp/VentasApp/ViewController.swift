@@ -2,7 +2,7 @@ import UIKit
 
 class ViewController: UIViewController {
     
-    // Elementos de la interfaz (UI)
+    // UI Elements
     let titleLabel = UILabel()
     
     let capitalTextField = UITextField()
@@ -20,20 +20,20 @@ class ViewController: UIViewController {
     }
     
     func setupUI() {
-        // Fondo blanco para que se vea bien en iOS
         view.backgroundColor = .systemBackground
         
-        // Configuración del Título
+        // Title
         titleLabel.text = "Calculadora de Préstamos"
         titleLabel.font = .boldSystemFont(ofSize: 24)
         titleLabel.textAlignment = .center
         
-        // Configuración de los TextFields
+        // TextFields
         setupTextField(capitalTextField, placeholder: "Capital inicial (ej. 10000)")
         setupTextField(interestTextField, placeholder: "Tasa de interés anual % (ej. 15)")
         setupTextField(yearsTextField, placeholder: "Plazo del préstamo en años (ej. 5)")
+        yearsTextField.keyboardType = .numberPad // Better for years
         
-        // Configuración del Botón de Calcular
+        // Button
         calculateButton.setTitle("Calcular", for: .normal)
         calculateButton.backgroundColor = .systemBlue
         calculateButton.setTitleColor(.white, for: .normal)
@@ -41,7 +41,7 @@ class ViewController: UIViewController {
         calculateButton.titleLabel?.font = .boldSystemFont(ofSize: 18)
         calculateButton.addTarget(self, action: #selector(calculateLoan), for: .touchUpInside)
         
-        // Configuración de los Textos de Resultado
+        // Result Labels
         monthlyPaymentLabel.text = "Cuota mensual: $0.00"
         monthlyPaymentLabel.font = .systemFont(ofSize: 18, weight: .medium)
         monthlyPaymentLabel.textAlignment = .center
@@ -52,7 +52,7 @@ class ViewController: UIViewController {
         totalPaymentLabel.textAlignment = .center
         totalPaymentLabel.numberOfLines = 0
         
-        // Apilar todos los elementos verticalmente
+        // StackView
         let stackView = UIStackView(arrangedSubviews: [
             titleLabel,
             capitalTextField,
@@ -69,7 +69,7 @@ class ViewController: UIViewController {
         
         view.addSubview(stackView)
         
-        // Constraints (Reglas de diseño para que se adapte a cualquier pantalla)
+        // Constraints
         NSLayoutConstraint.activate([
             stackView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 40),
             stackView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
@@ -81,12 +81,11 @@ class ViewController: UIViewController {
             calculateButton.heightAnchor.constraint(equalToConstant: 50)
         ])
         
-        // Ocultar teclado al tocar fuera
+        // Dismiss keyboard
         let tap = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
         view.addGestureRecognizer(tap)
     }
     
-    // Función de ayuda para darle estilo a los textfields
     func setupTextField(_ textField: UITextField, placeholder: String) {
         textField.placeholder = placeholder
         textField.borderStyle = .roundedRect
@@ -98,42 +97,42 @@ class ViewController: UIViewController {
         view.endEditing(true)
     }
     
-    // Lógica matemática (La fórmula de amortización)
     @objc func calculateLoan() {
         dismissKeyboard()
         
-        // Validar que el usuario sí ingresó números (cambiamos coma por punto por si acaso)
+        // Validate inputs
         guard let capitalText = capitalTextField.text?.replacingOccurrences(of: ",", with: "."),
               let interestText = interestTextField.text?.replacingOccurrences(of: ",", with: "."),
               let yearsText = yearsTextField.text?.replacingOccurrences(of: ",", with: "."),
               let p = Double(capitalText),
               let annualInterestRate = Double(interestText),
-              let years = Int(yearsText),
+              let years = Double(yearsText), // changed to Double to allow 1.5 years for example
               p > 0, annualInterestRate > 0, years > 0 else {
             
-            monthlyPaymentLabel.text = "⚠️ Por favor, ingrese valores válidos."
+            monthlyPaymentLabel.text = "Por favor, ingrese valores válidos mayores a 0."
             totalPaymentLabel.text = ""
             return
         }
         
-        // r = tasa de interés mensual
+        // r = tasa de interés mensual (interés anual dividido entre 12)
+        // Se asume que el usuario ingresa un porcentaje, ej. 15. Así que se divide entre 100.
         let r = (annualInterestRate / 100.0) / 12.0
         
-        // n = número total de pagos
-        let n = Double(years * 12)
+        // n = número total de pagos (número de años multiplicado por 12)
+        let n = years * 12.0
         
         // M = P * (r(1+r)^n) / ((1+r)^n - 1)
-        let numerator = r * pow(1 + r, n)
-        let denominator = pow(1 + r, n) - 1
+        let numerator = r * pow(1.0 + r, n)
+        let denominator = pow(1.0 + r, n) - 1.0
         let m = p * (numerator / denominator)
         
-        // Monto total a pagar
+        // Monto total a pagar = cuota mensual * número total de pagos
         let total = m * n
         
-        // Formatear resultados como dinero
+        // Formatting
         let formatter = NumberFormatter()
         formatter.numberStyle = .currency
-        formatter.currencySymbol = "$" // Puedes cambiarlo a "S/" si deseas
+        formatter.currencySymbol = "$" 
         formatter.minimumFractionDigits = 2
         formatter.maximumFractionDigits = 2
         
