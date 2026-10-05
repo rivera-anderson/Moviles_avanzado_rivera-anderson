@@ -6,7 +6,7 @@ class ViewController: UIViewController {
     let titleLabel = UILabel()
     
     let pesoLabel = UILabel()
-    let weightTextField = UITextField()
+    let pesoTextField = UITextField() // Renamed to pesoTextField
     
     let alturaLabel = UILabel()
     let heightTextField = UITextField()
@@ -24,7 +24,7 @@ class ViewController: UIViewController {
     func setupUI() {
         view.backgroundColor = .systemBackground
         
-        // Título
+        // Titulo
         titleLabel.text = "Calcular el IMC de una Persona"
         titleLabel.font = .systemFont(ofSize: 20, weight: .regular)
         titleLabel.textColor = .systemBlue
@@ -37,16 +37,16 @@ class ViewController: UIViewController {
         alturaLabel.text = "Altura(m)"
         alturaLabel.font = .systemFont(ofSize: 16)
         
-        setupTextField(weightTextField, placeholder: "")
+        setupTextField(pesoTextField, placeholder: "")
         setupTextField(heightTextField, placeholder: "")
         
-        // Botón
+        // Boton
         calculateButton.setTitle(" Mostrar", for: .normal)
         calculateButton.setImage(UIImage(systemName: "info.circle"), for: .normal)
         calculateButton.titleLabel?.font = .systemFont(ofSize: 18)
         calculateButton.addTarget(self, action: #selector(calculateIMC), for: .touchUpInside)
         
-        // Subtítulo y Resultado
+        // Subtitulo y Resultado
         subtitleLabel.text = "Resultado IMC"
         subtitleLabel.font = .systemFont(ofSize: 16)
         subtitleLabel.textAlignment = .center
@@ -57,7 +57,7 @@ class ViewController: UIViewController {
         resultLabel.numberOfLines = 0
         
         // Contenedores horizontales para los inputs
-        let weightStack = UIStackView(arrangedSubviews: [pesoLabel, weightTextField])
+        let weightStack = UIStackView(arrangedSubviews: [pesoLabel, pesoTextField])
         weightStack.axis = .horizontal
         weightStack.spacing = 20
         weightStack.distribution = .fillEqually
@@ -89,7 +89,7 @@ class ViewController: UIViewController {
             mainStack.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 30),
             mainStack.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -30),
             
-            weightTextField.heightAnchor.constraint(equalToConstant: 34),
+            pesoTextField.heightAnchor.constraint(equalToConstant: 34),
             heightTextField.heightAnchor.constraint(equalToConstant: 34)
         ])
         
@@ -111,12 +111,12 @@ class ViewController: UIViewController {
     @objc func calculateIMC() {
         dismissKeyboard()
         
-        guard let pesoText = weightTextField.text?.replacingOccurrences(of: ",", with: "."),
+        guard let pesoText = pesoTextField.text?.replacingOccurrences(of: ",", with: "."),
               let alturaText = heightTextField.text?.replacingOccurrences(of: ",", with: "."),
               let peso = Double(pesoText),
               let altura = Double(alturaText),
               peso > 0, altura > 0 else {
-            resultLabel.text = "Por favor ingrese valores válidos."
+            resultLabel.text = "Por favor ingrese valores validos."
             return
         }
         
@@ -127,9 +127,9 @@ class ViewController: UIViewController {
         
         if imc < 18.5 {
             categoria = "Bajo peso"
-        } else if imc <= 24.9 {
+        } else if imc < 25.0 {
             categoria = "Peso normal"
-        } else if imc <= 29.9 {
+        } else if imc < 30.0 {
             categoria = "Sobrepeso"
         } else {
             categoria = "Obesidad"
