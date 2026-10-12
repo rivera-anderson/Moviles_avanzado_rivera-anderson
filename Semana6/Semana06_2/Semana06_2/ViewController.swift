@@ -29,7 +29,7 @@ class ViewController:UIViewController {
             // crear el Storyboard con el nombre Main, se asocia a la pantalla 2
             // le pasamos los datos del cliente
             let osb: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
-            let oPantalla2 = osb.instantiateViewController(identifier: "viewControllerConfirmation") as! ViewControllerConfirmation
+            let oPantalla2 = osb.instantiateViewController(identifier: "viewControllerConfirmation") as! viewControllerConfirmation
             oPantalla2.pCliente = oCliente
             self.present(oPantalla2, animated: true, completion: nil)
     }
