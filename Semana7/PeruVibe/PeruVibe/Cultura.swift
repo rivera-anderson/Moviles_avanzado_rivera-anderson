@@ -2,14 +2,11 @@
 //  Cultura.swift
 //  PeruVibe
 //
-//  Created by Tecsup on 13/10/26.
+//  Created by Tecsup on 15/10/26.
 //
 
-import Foundation
+import UIKit
 
-struct Cultura {
-    let nombre: String
-    let region: String
-    let descripcion: String
-    let imagenNombre: String
+class Cultura: NSObject {
+
 }
