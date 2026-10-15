@@ -9,21 +9,31 @@ import UIKit
 
 class DetalleLugarViewController: UIViewController {
 
-    override func viewDidLoad() {
-        super.viewDidLoad()
 
-        // Do any additional setup after loading the view.
-    }
+    @IBOutlet weak var imagenGrandeImageView: UIImageView!
     
+    @IBOutlet weak var regionLabel: UILabel!
+    
+    @IBOutlet weak var descripcionLabel: UILabel!
+    var lugar: Lugar?
 
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
+        override func viewDidLoad() {
+            super.viewDidLoad()
+            
+            if let lugar = lugar {
+                title = lugar.nombre
+    
+                
+                // Asignación directa para evitar que diga "Ubicación:" dos veces
+                regionLabel.text = lugar.region
+                
+                // Permite saltos de línea automáticos por código
+                descripcionLabel.numberOfLines = 0
+                descripcionLabel.text = lugar.descripcion
+                
+                imagenGrandeImageView.image = UIImage(named: lugar.imagenNombre)
+                imagenGrandeImageView.contentMode = .scaleAspectFill
+                imagenGrandeImageView.clipsToBounds = true
+            }
+        }
 }

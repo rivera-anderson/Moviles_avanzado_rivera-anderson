@@ -11,53 +11,100 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
 
 
     @IBOutlet weak var tableView: UITableView!
-    // Lista de culturas peruanas con datos
-    let culturas: [Cultura] = [
-        Cultura(nombre: "Caral", region: "Lima", descripcion: "La civilización más antigua de América.", imagenNombre: "caral"),
-        Cultura(nombre: "Chavín", region: "Áncash", descripcion: "Famosa por sus cabezas clavas y el Lanzón Monolítico.", imagenNombre: "chavin"),
-        Cultura(nombre: "Mochica", region: "La Libertad", descripcion: "Conocidos por su cerámica escultórica y los huacos retratos.", imagenNombre: "mochica")
-    ]
+    
+    var culturas: [Cultura] = []
 
     override func viewDidLoad() {
         super.viewDidLoad()
         title = "Culturas Peruanas"
         
+        cargarDatos()
+        
         tableView.dataSource = self
         tableView.delegate = self
     }
 
-    // MARK: - Métodos de UITableView
+    private func cargarDatos() {
+        let caral = Cultura(
+            nombre: "Caral",
+            region: "Lima",
+            imagenNombre: "caral",
+            lugares: [
+                Lugar(
+                    nombre: "Ciudad Sagrada de Caral",
+                    region: "Supe, Lima",
+                    descripcion: "La civilización más antigua de América, destacan sus pirámides y plazas circulares.",
+                    imagenNombre: "caral_ciudad"
+                )
+            ]
+        )
+        
+        let chavin = Cultura(
+            nombre: "Chavín",
+            region: "Áncash",
+            imagenNombre: "chavin",
+            lugares: [
+                Lugar(
+                    nombre: "Monumento Arqueológico Chavín de Huántar",
+                    region: "Huari, Áncash",
+                    descripcion: "Centro ceremonial con galerías subterráneas, el Lanzón Monolítico y las Cabezas Clavas.",
+                    imagenNombre: "chavin_huantar"
+                )
+            ]
+        )
+        
+        let mochica = Cultura(
+            nombre: "Mochica",
+            region: "La Libertad",
+            imagenNombre: "mochica",
+            lugares: [
+                Lugar(
+                    nombre: "Huaca del Sol y de la Luna",
+                    region: "Trujillo, La Libertad",
+                    descripcion: "Santuario Moche decorado con impresionantes murales polícromos.",
+                    imagenNombre: "huaca_luna"
+                ),
+                Lugar(
+                    nombre: "Ciudadela de Chan Chan",
+                    region: "Trujillo, La Libertad",
+                    descripcion: "La ciudad de barro más grande de América precolombina.",
+                    imagenNombre: "chan_chan"
+                )
+            ]
+        )
+        
+        culturas = [caral, chavin, mochica]
+    }
+
+    // MARK: - UITableViewDataSource & Delegate
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return culturas.count
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "cell") ?? UITableViewCell(style: .subtitle, reuseIdentifier: "cell")
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as? CulturaTableViewCell else {
+            return UITableViewCell()
+        }
         
         let cultura = culturas[indexPath.row]
-        cell.textLabel?.text = cultura.nombre
-        cell.detailTextLabel?.text = cultura.region
-        cell.imageView?.image = UIImage(named: cultura.imagenNombre)
-        cell.accessoryType = .disclosureIndicator
+        
+        // Asignación sin regionLabel
+        cell.nombreLabel.text = cultura.nombre
+        cell.imagenCulturaImageView.image = UIImage(named: cultura.imagenNombre)
         
         return cell
     }
 
-    // NAVEGACIÓN Y PASO DE DATOS
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
         
         let culturaSeleccionada = culturas[indexPath.row]
-        
-        // Cargar el View Controller de Detalle desde el Storyboard
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        if let detalleVC = storyboard.instantiateViewController(withIdentifier: "DetalleViewController") as? DetalleViewController {
-            detalleVC.cultura = culturaSeleccionada
-            
-            // Empujar la vista al NavigationController
-            navigationController?.pushViewController(detalleVC, animated: true)
+        
+        if let lugaresVC = storyboard.instantiateViewController(withIdentifier: "LugaresViewController") as? LugaresViewController {
+            lugaresVC.cultura = culturaSeleccionada
+            navigationController?.pushViewController(lugaresVC, animated: true)
         }
     }
 }
-

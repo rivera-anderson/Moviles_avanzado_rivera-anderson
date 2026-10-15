@@ -9,6 +9,10 @@ import UIKit
 
 class LugarTableViewCell: UITableViewCell {
 
+    
+    @IBOutlet weak var nombreLugarLabel: UILabel!
+    
+    @IBOutlet weak var imagenLugarImageView: UIImageView!
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
