@@ -1,0 +1,523 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="24127" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="accNv001">
+    <device id="retina6_12" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="24063"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Acceso (inicio sin sesión)-->
+        <scene sceneID="scn-Sc-003">
+            <objects>
+                <navigationController storyboardIdentifier="Acceso" id="accNv001" sceneMemberID="viewController">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="nvb-Nb-001">
+                        <rect key="frame" x="0.0" y="59" width="393" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="lgnVc001" kind="relationship" relationship="rootViewController" id="seg-Sg-002"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="frs-Rp-004" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="0" y="0"/>
+        </scene>
+        <!--A1 · Login-->
+        <scene sceneID="scn-Sc-008">
+            <objects>
+                <viewController storyboardIdentifier="Login" id="lgnVc001" customClass="LoginViewController" customModule="VentasTecsup" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="vws-Vw-005">
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <viewLayoutGuide key="safeArea" id="saf-Sa-006"/>
+                        <color key="backgroundColor" systemColor="systemGroupedBackgroundColor"/>
+                    </view>
+                    <navigationItem key="navigationItem" title="A1 · Login" id="nvi-Ni-007"/>
+                    <connections>
+                        <segue destination="regVc001" kind="show" identifier="mostrarRegistro" id="lgnSg001"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="frs-Rp-009" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="450" y="0"/>
+        </scene>
+        <!--A2 · Crear cuenta-->
+        <scene sceneID="scn-Sc-013">
+            <objects>
+                <viewController storyboardIdentifier="Registro" id="regVc001" customClass="RegistroViewController" customModule="VentasTecsup" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="vws-Vw-010">
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <viewLayoutGuide key="safeArea" id="saf-Sa-011"/>
+                        <color key="backgroundColor" systemColor="systemGroupedBackgroundColor"/>
+                    </view>
+                    <navigationItem key="navigationItem" title="A2 · Crear cuenta" id="nvi-Ni-012"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="frs-Rp-014" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="900" y="0"/>
+        </scene>
+        <!--Pestañas del Supervisor-->
+        <scene sceneID="scn-Sc-021">
+            <objects>
+                <tabBarController storyboardIdentifier="TabsSupervisor" id="supTb001" sceneMemberID="viewController">
+                    <tabBar key="tabBar" contentMode="scaleToFill" id="tab-Br-020">
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="49"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </tabBar>
+                    <connections>
+                        <segue destination="supNv001" kind="relationship" relationship="viewControllers" id="seg-Sg-015"/>
+                        <segue destination="supNv002" kind="relationship" relationship="viewControllers" id="seg-Sg-016"/>
+                        <segue destination="supNv003" kind="relationship" relationship="viewControllers" id="seg-Sg-017"/>
+                        <segue destination="supNv004" kind="relationship" relationship="viewControllers" id="seg-Sg-018"/>
+                        <segue destination="supNv005" kind="relationship" relationship="viewControllers" id="seg-Sg-019"/>
+                    </connections>
+                </tabBarController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="frs-Rp-022" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1350" y="0"/>
+        </scene>
+        <!--Supervisor · Resumen-->
+        <scene sceneID="scn-Sc-026">
+            <objects>
+                <navigationController id="supNv001" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Resumen" image="chart.bar.xaxis" catalog="system" id="tbi-Tb-023"/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="nvb-Nb-024">
+                        <rect key="frame" x="0.0" y="59" width="393" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="resVc001" kind="relationship" relationship="rootViewController" id="seg-Sg-025"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="frs-Rp-027" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1800" y="0"/>
+        </scene>
+        <!--Supervisor · Ventas-->
+        <scene sceneID="scn-Sc-031">
+            <objects>
+                <navigationController id="supNv002" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Ventas" image="list.bullet.rectangle.portrait" catalog="system" id="tbi-Tb-028"/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="nvb-Nb-029">
+                        <rect key="frame" x="0.0" y="59" width="393" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="veqVc001" kind="relationship" relationship="rootViewController" id="seg-Sg-030"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="frs-Rp-032" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2250" y="0"/>
+        </scene>
+        <!--Supervisor · Productos-->
+        <scene sceneID="scn-Sc-036">
+            <objects>
+                <navigationController id="supNv003" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Productos" image="shippingbox" catalog="system" id="tbi-Tb-033"/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="nvb-Nb-034">
+                        <rect key="frame" x="0.0" y="59" width="393" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="prdVc001" kind="relationship" relationship="rootViewController" id="seg-Sg-035"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="frs-Rp-037" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="0" y="950"/>
+        </scene>
+        <!--Supervisor · Clientes-->
+        <scene sceneID="scn-Sc-041">
+            <objects>
+                <navigationController id="supNv004" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Clientes" image="person.2" catalog="system" id="tbi-Tb-038"/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="nvb-Nb-039">
+                        <rect key="frame" x="0.0" y="59" width="393" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="cliVc001" kind="relationship" relationship="rootViewController" id="seg-Sg-040"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="frs-Rp-042" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="450" y="950"/>
+        </scene>
+        <!--Supervisor · Cuenta-->
+        <scene sceneID="scn-Sc-046">
+            <objects>
+                <navigationController id="supNv005" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Cuenta" image="person.crop.circle" catalog="system" id="tbi-Tb-043"/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="nvb-Nb-044">
+                        <rect key="frame" x="0.0" y="59" width="393" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="ctaVc001" kind="relationship" relationship="rootViewController" id="seg-Sg-045"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="frs-Rp-047" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="900" y="950"/>
+        </scene>
+        <!--A9 · Resumen-->
+        <scene sceneID="scn-Sc-051">
+            <objects>
+                <viewController id="resVc001" customClass="ResumenViewController" customModule="VentasTecsup" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="vws-Vw-048">
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <viewLayoutGuide key="safeArea" id="saf-Sa-049"/>
+                        <color key="backgroundColor" systemColor="systemGroupedBackgroundColor"/>
+                    </view>
+                    <navigationItem key="navigationItem" title="A9 · Resumen" id="nvi-Ni-050"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="frs-Rp-052" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1350" y="950"/>
+        </scene>
+        <!--A7 · Ventas del equipo-->
+        <scene sceneID="scn-Sc-057">
+            <objects>
+                <tableViewController id="veqVc001" customClass="VentasEquipoViewController" customModule="VentasTecsup" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="insetGrouped" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" id="tbl-Tv-053">
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" systemColor="systemGroupedBackgroundColor"/>
+                        <connections>
+                            <outlet property="dataSource" destination="veqVc001" id="out-Ds-054"/>
+                            <outlet property="delegate" destination="veqVc001" id="out-Dl-055"/>
+                        </connections>
+                    </tableView>
+                    <navigationItem key="navigationItem" title="A7 · Ventas del equipo" id="nvi-Ni-056"/>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="frs-Rp-058" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1800" y="950"/>
+        </scene>
+        <!--A3 · Productos-->
+        <scene sceneID="scn-Sc-063">
+            <objects>
+                <tableViewController id="prdVc001" customClass="ProductosViewController" customModule="VentasTecsup" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="insetGrouped" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" id="tbl-Tv-059">
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" systemColor="systemGroupedBackgroundColor"/>
+                        <connections>
+                            <outlet property="dataSource" destination="prdVc001" id="out-Ds-060"/>
+                            <outlet property="delegate" destination="prdVc001" id="out-Dl-061"/>
+                        </connections>
+                    </tableView>
+                    <navigationItem key="navigationItem" title="A3 · Productos" id="nvi-Ni-062"/>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="frs-Rp-064" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2250" y="950"/>
+        </scene>
+        <!--A4 · Clientes-->
+        <scene sceneID="scn-Sc-069">
+            <objects>
+                <tableViewController id="cliVc001" customClass="ClientesViewController" customModule="VentasTecsup" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="insetGrouped" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" id="tbl-Tv-065">
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" systemColor="systemGroupedBackgroundColor"/>
+                        <connections>
+                            <outlet property="dataSource" destination="cliVc001" id="out-Ds-066"/>
+                            <outlet property="delegate" destination="cliVc001" id="out-Dl-067"/>
+                        </connections>
+                    </tableView>
+                    <navigationItem key="navigationItem" title="A4 · Clientes" id="nvi-Ni-068"/>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="frs-Rp-070" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="0" y="1900"/>
+        </scene>
+        <!--Cuenta-->
+        <scene sceneID="scn-Sc-075">
+            <objects>
+                <tableViewController id="ctaVc001" customClass="CuentaViewController" customModule="VentasTecsup" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="insetGrouped" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" id="tbl-Tv-071">
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" systemColor="systemGroupedBackgroundColor"/>
+                        <connections>
+                            <outlet property="dataSource" destination="ctaVc001" id="out-Ds-072"/>
+                            <outlet property="delegate" destination="ctaVc001" id="out-Dl-073"/>
+                        </connections>
+                    </tableView>
+                    <navigationItem key="navigationItem" title="Cuenta" id="nvi-Ni-074"/>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="frs-Rp-076" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="450" y="1900"/>
+        </scene>
+        <!--Pestañas del Vendedor-->
+        <scene sceneID="scn-Sc-083">
+            <objects>
+                <tabBarController storyboardIdentifier="TabsVendedor" id="venTb001" sceneMemberID="viewController">
+                    <tabBar key="tabBar" contentMode="scaleToFill" id="tab-Br-082">
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="49"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </tabBar>
+                    <connections>
+                        <segue destination="venNv001" kind="relationship" relationship="viewControllers" id="seg-Sg-077"/>
+                        <segue destination="venNv002" kind="relationship" relationship="viewControllers" id="seg-Sg-078"/>
+                        <segue destination="venNv003" kind="relationship" relationship="viewControllers" id="seg-Sg-079"/>
+                        <segue destination="venNv004" kind="relationship" relationship="viewControllers" id="seg-Sg-080"/>
+                        <segue destination="venNv005" kind="relationship" relationship="viewControllers" id="seg-Sg-081"/>
+                    </connections>
+                </tabBarController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="frs-Rp-084" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="900" y="1900"/>
+        </scene>
+        <!--Vendedor · Productos-->
+        <scene sceneID="scn-Sc-088">
+            <objects>
+                <navigationController id="venNv001" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Productos" image="shippingbox" catalog="system" id="tbi-Tb-085"/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="nvb-Nb-086">
+                        <rect key="frame" x="0.0" y="59" width="393" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="prdVc002" kind="relationship" relationship="rootViewController" id="seg-Sg-087"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="frs-Rp-089" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1350" y="1900"/>
+        </scene>
+        <!--Vendedor · Clientes-->
+        <scene sceneID="scn-Sc-093">
+            <objects>
+                <navigationController id="venNv002" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Clientes" image="person.2" catalog="system" id="tbi-Tb-090"/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="nvb-Nb-091">
+                        <rect key="frame" x="0.0" y="59" width="393" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="cliVc002" kind="relationship" relationship="rootViewController" id="seg-Sg-092"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="frs-Rp-094" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1800" y="1900"/>
+        </scene>
+        <!--Vendedor · Venta-->
+        <scene sceneID="scn-Sc-098">
+            <objects>
+                <navigationController id="venNv003" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Venta" image="cart.badge.plus" catalog="system" id="tbi-Tb-095"/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="nvb-Nb-096">
+                        <rect key="frame" x="0.0" y="59" width="393" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="nvtVc001" kind="relationship" relationship="rootViewController" id="seg-Sg-097"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="frs-Rp-099" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2250" y="1900"/>
+        </scene>
+        <!--Vendedor · Mis ventas-->
+        <scene sceneID="scn-Sc-103">
+            <objects>
+                <navigationController id="venNv004" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Mis ventas" image="list.bullet.rectangle" catalog="system" id="tbi-Tb-100"/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="nvb-Nb-101">
+                        <rect key="frame" x="0.0" y="59" width="393" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="mvtVc001" kind="relationship" relationship="rootViewController" id="seg-Sg-102"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="frs-Rp-104" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="0" y="2850"/>
+        </scene>
+        <!--Vendedor · Cuenta-->
+        <scene sceneID="scn-Sc-108">
+            <objects>
+                <navigationController id="venNv005" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Cuenta" image="person.crop.circle" catalog="system" id="tbi-Tb-105"/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="nvb-Nb-106">
+                        <rect key="frame" x="0.0" y="59" width="393" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="ctaVc002" kind="relationship" relationship="rootViewController" id="seg-Sg-107"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="frs-Rp-109" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="450" y="2850"/>
+        </scene>
+        <!--A3 · Productos-->
+        <scene sceneID="scn-Sc-114">
+            <objects>
+                <tableViewController id="prdVc002" customClass="ProductosViewController" customModule="VentasTecsup" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="insetGrouped" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" id="tbl-Tv-110">
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" systemColor="systemGroupedBackgroundColor"/>
+                        <connections>
+                            <outlet property="dataSource" destination="prdVc002" id="out-Ds-111"/>
+                            <outlet property="delegate" destination="prdVc002" id="out-Dl-112"/>
+                        </connections>
+                    </tableView>
+                    <navigationItem key="navigationItem" title="A3 · Productos" id="nvi-Ni-113"/>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="frs-Rp-115" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="900" y="2850"/>
+        </scene>
+        <!--A4 · Clientes-->
+        <scene sceneID="scn-Sc-120">
+            <objects>
+                <tableViewController id="cliVc002" customClass="ClientesViewController" customModule="VentasTecsup" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="insetGrouped" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" id="tbl-Tv-116">
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" systemColor="systemGroupedBackgroundColor"/>
+                        <connections>
+                            <outlet property="dataSource" destination="cliVc002" id="out-Ds-117"/>
+                            <outlet property="delegate" destination="cliVc002" id="out-Dl-118"/>
+                        </connections>
+                    </tableView>
+                    <navigationItem key="navigationItem" title="A4 · Clientes" id="nvi-Ni-119"/>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="frs-Rp-121" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1350" y="2850"/>
+        </scene>
+        <!--A5 · Nueva venta-->
+        <scene sceneID="scn-Sc-126">
+            <objects>
+                <tableViewController id="nvtVc001" customClass="NuevaVentaViewController" customModule="VentasTecsup" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="insetGrouped" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" id="tbl-Tv-122">
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" systemColor="systemGroupedBackgroundColor"/>
+                        <connections>
+                            <outlet property="dataSource" destination="nvtVc001" id="out-Ds-123"/>
+                            <outlet property="delegate" destination="nvtVc001" id="out-Dl-124"/>
+                        </connections>
+                    </tableView>
+                    <navigationItem key="navigationItem" title="A5 · Nueva venta" id="nvi-Ni-125"/>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="frs-Rp-127" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1800" y="2850"/>
+        </scene>
+        <!--A6 · Mis ventas-->
+        <scene sceneID="scn-Sc-132">
+            <objects>
+                <tableViewController id="mvtVc001" customClass="MisVentasViewController" customModule="VentasTecsup" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="insetGrouped" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" id="tbl-Tv-128">
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" systemColor="systemGroupedBackgroundColor"/>
+                        <connections>
+                            <outlet property="dataSource" destination="mvtVc001" id="out-Ds-129"/>
+                            <outlet property="delegate" destination="mvtVc001" id="out-Dl-130"/>
+                        </connections>
+                    </tableView>
+                    <navigationItem key="navigationItem" title="A6 · Mis ventas" id="nvi-Ni-131"/>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="frs-Rp-133" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2250" y="2850"/>
+        </scene>
+        <!--Cuenta-->
+        <scene sceneID="scn-Sc-138">
+            <objects>
+                <tableViewController id="ctaVc002" customClass="CuentaViewController" customModule="VentasTecsup" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="insetGrouped" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" id="tbl-Tv-134">
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" systemColor="systemGroupedBackgroundColor"/>
+                        <connections>
+                            <outlet property="dataSource" destination="ctaVc002" id="out-Ds-135"/>
+                            <outlet property="delegate" destination="ctaVc002" id="out-Dl-136"/>
+                        </connections>
+                    </tableView>
+                    <navigationItem key="navigationItem" title="Cuenta" id="nvi-Ni-137"/>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="frs-Rp-139" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="0" y="3800"/>
+        </scene>
+        <!--Formulario de producto-->
+        <scene sceneID="scn-Sc-143">
+            <objects>
+                <viewController storyboardIdentifier="ProductoForm" id="pfmVc001" customClass="ProductoFormViewController" customModule="VentasTecsup" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="vws-Vw-140">
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <viewLayoutGuide key="safeArea" id="saf-Sa-141"/>
+                        <color key="backgroundColor" systemColor="systemGroupedBackgroundColor"/>
+                    </view>
+                    <navigationItem key="navigationItem" title="Formulario de producto" id="nvi-Ni-142"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="frs-Rp-144" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="450" y="3800"/>
+        </scene>
+        <!--Formulario de cliente-->
+        <scene sceneID="scn-Sc-148">
+            <objects>
+                <viewController storyboardIdentifier="ClienteForm" id="cfmVc001" customClass="ClienteFormViewController" customModule="VentasTecsup" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="vws-Vw-145">
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <viewLayoutGuide key="safeArea" id="saf-Sa-146"/>
+                        <color key="backgroundColor" systemColor="systemGroupedBackgroundColor"/>
+                    </view>
+                    <navigationItem key="navigationItem" title="Formulario de cliente" id="nvi-Ni-147"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="frs-Rp-149" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="900" y="3800"/>
+        </scene>
+        <!--Elegir cliente o producto-->
+        <scene sceneID="scn-Sc-154">
+            <objects>
+                <tableViewController storyboardIdentifier="Seleccion" id="selVc001" customClass="SeleccionViewController" customModule="VentasTecsup" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="insetGrouped" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" id="tbl-Tv-150">
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" systemColor="systemGroupedBackgroundColor"/>
+                        <connections>
+                            <outlet property="dataSource" destination="selVc001" id="out-Ds-151"/>
+                            <outlet property="delegate" destination="selVc001" id="out-Dl-152"/>
+                        </connections>
+                    </tableView>
+                    <navigationItem key="navigationItem" title="Elegir cliente o producto" id="nvi-Ni-153"/>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="frs-Rp-155" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1350" y="3800"/>
+        </scene>
+    </scenes>
+    <resources>
+        <image name="cart.badge.plus" catalog="system" width="128" height="128"/>
+        <image name="chart.bar.xaxis" catalog="system" width="128" height="128"/>
+        <image name="list.bullet.rectangle" catalog="system" width="128" height="128"/>
+        <image name="list.bullet.rectangle.portrait" catalog="system" width="128" height="128"/>
+        <image name="person.2" catalog="system" width="128" height="128"/>
+        <image name="person.crop.circle" catalog="system" width="128" height="128"/>
+        <image name="shippingbox" catalog="system" width="128" height="128"/>
+        <systemColor name="systemGroupedBackgroundColor">
+            <color red="0.94901960784313721" green="0.94901960784313721" blue="0.96862745098039216" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
+    </resources>
+</document>

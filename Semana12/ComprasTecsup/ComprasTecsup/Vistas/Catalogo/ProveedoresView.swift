@@ -35,7 +35,7 @@ struct ProveedoresView: View {
                             if esSupervisor { proveedorAEditar = proveedor }
                         }
                 }
-                .onDelete(perform: esSupervisor ? borrar : nil)
+                .onDelete(perform: esSupervisor ? { borrar($0) } : nil)
             } footer: {
                 if !proveedores.isEmpty {
                     // ③ Valores calculados desde las compras del proveedor
@@ -54,20 +54,7 @@ struct ProveedoresView: View {
         }
         .searchable(text: $busqueda, prompt: "Buscar por nombre o RUC")
         .navigationTitle("Proveedores")
-        .toolbar {
-            ToolbarItem(placement: .topBarTrailing) {
-                AvatarMenu()
-            }
-            if esSupervisor {
-                ToolbarItem(placement: .topBarTrailing) {
-                    Button {
-                        mostrarNuevo = true
-                    } label: {
-                        Label("Nuevo proveedor", systemImage: "plus") // ① Botón + (solo supervisor)
-                    }
-                }
-            }
-        }
+        .toolbar { barra }
         .sheet(isPresented: $mostrarNuevo) {
             ProveedorFormView()
         }
@@ -81,6 +68,20 @@ struct ProveedoresView: View {
             Button("Entendido", role: .cancel) {}
         } message: {
             Text(mensajeBloqueo ?? "")
+        }
+    }
+
+    @ToolbarContentBuilder
+    private var barra: some ToolbarContent {
+        ToolbarItemGroup(placement: .topBarTrailing) {
+            AvatarMenu()
+            if esSupervisor {
+                Button {
+                    mostrarNuevo = true
+                } label: {
+                    Label("Nuevo proveedor", systemImage: "plus") // ① Botón + (solo supervisor)
+                }
+            }
         }
     }
 

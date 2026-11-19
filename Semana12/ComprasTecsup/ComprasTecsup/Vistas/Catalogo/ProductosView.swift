@@ -43,7 +43,7 @@ struct ProductosView: View {
                         }
                 }
                 // ⑤ Deslizar para borrar: solo supervisor (para el comprador se pasa nil y no hay swipe)
-                .onDelete(perform: esSupervisor ? borrar : nil)
+                .onDelete(perform: esSupervisor ? { borrar($0) } : nil)
             }
 
             if !productos.isEmpty {
@@ -81,11 +81,9 @@ struct ProductosView: View {
         .searchable(text: $busqueda, prompt: "Buscar")
         .navigationTitle("Productos") // ① Título
         .toolbar {
-            ToolbarItem(placement: .topBarTrailing) {
+            ToolbarItemGroup(placement: .topBarTrailing) {
                 AvatarMenu()
-            }
-            if esSupervisor {
-                ToolbarItem(placement: .topBarTrailing) {
+                if esSupervisor {
                     Button {
                         mostrarNuevo = true
                     } label: {
